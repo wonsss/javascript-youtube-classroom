@@ -64,7 +64,7 @@ export default class Template {
 
       </style>
       <a href='https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1'>
-      <img src=${imgUrl}>
+      <img src=${imgUrl} loading='lazy'>
         <div class='play'></div>
       </a>
     `;
@@ -78,6 +78,7 @@ export default class Template {
           srcdoc="" 
           frameborder="0"
           allow="autoplay"
+          loading="lazy"
           allowfullscreen>
         </iframe>
         <h4 class="video-item__title"></h4>
