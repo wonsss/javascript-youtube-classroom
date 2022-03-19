@@ -84,7 +84,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "REDIRECT_SERVER_HOST": () => (/* binding */ REDIRECT_SERVER_HOST),
 /* harmony export */   "YOUTUBE_SEARCH_PATH": () => (/* binding */ YOUTUBE_SEARCH_PATH)
 /* harmony export */ });
-var REDIRECT_SERVER_HOST = 'https://zealous-swartz-f699df.netlify.app/';
+var REDIRECT_SERVER_HOST = 'https://priceless-euclid-bf53ed.netlify.app/';
 var YOUTUBE_SEARCH_PATH = 'youtube/v3/search';
 
 /***/ }),
@@ -143,6 +143,8 @@ var _subscribeViewEvents = /*#__PURE__*/new WeakSet();
 
 var _searchVideo = /*#__PURE__*/new WeakSet();
 
+var _saveKeyword = /*#__PURE__*/new WeakSet();
+
 var _scrollNextVideos = /*#__PURE__*/new WeakSet();
 
 var _saveVideo = /*#__PURE__*/new WeakSet();
@@ -176,6 +178,8 @@ var Controller = /*#__PURE__*/(0,_babel_runtime_helpers_createClass__WEBPACK_IMP
 
   _classPrivateMethodInitSpec(this, _scrollNextVideos);
 
+  _classPrivateMethodInitSpec(this, _saveKeyword);
+
   _classPrivateMethodInitSpec(this, _searchVideo);
 
   _classPrivateMethodInitSpec(this, _subscribeViewEvents);
@@ -208,8 +212,7 @@ var Controller = /*#__PURE__*/(0,_babel_runtime_helpers_createClass__WEBPACK_IMP
     }
   });
 
-  this.video = new _models_Video_js__WEBPACK_IMPORTED_MODULE_8__["default"](); // this.video.savedVideoItems = this.video.getItemsLocalStorage();
-
+  this.video = new _models_Video_js__WEBPACK_IMPORTED_MODULE_8__["default"]();
   this.mainView = new _views_MainView_js__WEBPACK_IMPORTED_MODULE_5__["default"]();
   this.searchInputView = new _views_SearchInputView_js__WEBPACK_IMPORTED_MODULE_6__["default"]();
   this.searchResultView = new _views_SearchResultView_js__WEBPACK_IMPORTED_MODULE_7__["default"]();
@@ -296,6 +299,14 @@ function _searchVideo3() {
     }, _callee, this, [[2, 6], [14, 18]]);
   }));
   return _searchVideo3.apply(this, arguments);
+}
+
+function _saveKeyword2(keyword) {
+  try {
+    this.video.keyword = keyword;
+  } catch (error) {
+    this.mainView.toastNotification('error', error.message);
+  }
 }
 
 function _scrollNextVideos2() {
