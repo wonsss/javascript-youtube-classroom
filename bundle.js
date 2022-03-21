@@ -213,6 +213,8 @@ var Controller = /*#__PURE__*/(0,_babel_runtime_helpers_createClass__WEBPACK_IMP
       _this.tabView.hideConfirmModal();
 
       _this.mainView.toastNotification('success', _constants_successMessages_js__WEBPACK_IMPORTED_MODULE_15__["default"].DELETED);
+
+      _classPrivateMethodGet(_this, _renderUnwatchedTab, _renderUnwatchedTab2).call(_this);
     }
   });
 
@@ -395,6 +397,12 @@ function _renderUnwatchedTab2() {
   });
   this.tabView.renderUnwatchedVideoItems(unwatchedVideoItems);
   this.tabView.showUnwatchedTab();
+
+  if (unwatchedVideoItems.length === 0) {
+    this.tabView.showEmptyTab();
+  } else {
+    this.tabView.hideEmptyTab();
+  }
 }
 
 function _renderWatchedTab2() {
@@ -403,6 +411,12 @@ function _renderWatchedTab2() {
   });
   this.tabView.renderWatchedVideoItems(watchedVideoItems, this.tabView.$watchedTab);
   this.tabView.showWatchedTab();
+
+  if (watchedVideoItems.length === 0) {
+    this.tabView.showEmptyTab();
+  } else {
+    this.tabView.hideEmptyTab();
+  }
 }
 
 function _checkUnwatchedVideo2(event) {
@@ -981,8 +995,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ MainView)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "./node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
-/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ "./node_modules/@babel/runtime/helpers/esm/createClass.js");
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ "./node_modules/@babel/runtime/helpers/esm/createClass.js");
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "./node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
 /* harmony import */ var _utils_dom_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/dom.js */ "./src/js/utils/dom.js");
 /* harmony import */ var _utils_event_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils/event.js */ "./src/js/utils/event.js");
@@ -1005,67 +1019,50 @@ var _openSearchModal = /*#__PURE__*/new WeakSet();
 
 var _watchDarkMode = /*#__PURE__*/new WeakSet();
 
-var MainView = /*#__PURE__*/function () {
-  function MainView() {
-    var _this = this;
+var _switchTheme = /*#__PURE__*/new WeakSet();
 
-    (0,_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__["default"])(this, MainView);
+var MainView = /*#__PURE__*/(0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_0__["default"])(function MainView() {
+  var _this = this;
 
-    _classPrivateMethodInitSpec(this, _watchDarkMode);
+  (0,_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__["default"])(this, MainView);
 
-    _classPrivateMethodInitSpec(this, _openSearchModal);
+  _classPrivateMethodInitSpec(this, _switchTheme);
 
-    _classPrivateMethodInitSpec(this, _bindEvents);
+  _classPrivateMethodInitSpec(this, _watchDarkMode);
 
-    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])(this, "toastNotification", function (state, message) {
-      var hideTimeout = null;
-      var $toastModal = "\n      <div class=\"toast toast--visible toast--".concat(state, "\">").concat(message, "</div>\n    ");
+  _classPrivateMethodInitSpec(this, _openSearchModal);
 
-      _this.$toastWrapper.insertAdjacentHTML('beforeEnd', $toastModal);
+  _classPrivateMethodInitSpec(this, _bindEvents);
 
-      clearTimeout(hideTimeout);
-      hideTimeout = setTimeout(function () {
-        (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_3__.$)(".toast--".concat(state)).classList.remove("toast--visible");
-        (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_3__.$)(".toast--".concat(state)).remove();
-      }, 3000);
-    });
+  (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])(this, "toastNotification", function (state, message) {
+    var hideTimeout = null;
+    var $toastModal = "\n      <div class=\"toast toast--visible toast--".concat(state, "\">").concat(message, "</div>\n    ");
 
-    this.$searchModalButton = (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_3__.$)('.nav-right__button');
-    this.$modalContainer = (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_3__.$)('.modal-container');
-    this.$toastWrapper = (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_3__.$)('.toast-wrapper');
-    this.$toggleSwitch = (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_3__.$)('.classroom__toggle');
+    _this.$toastWrapper.insertAdjacentHTML('beforeEnd', $toastModal);
 
-    _classPrivateMethodGet(this, _bindEvents, _bindEvents2).call(this);
+    clearTimeout(hideTimeout);
+    hideTimeout = setTimeout(function () {
+      (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_3__.$)(".toast--".concat(state)).classList.remove("toast--visible");
+      (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_3__.$)(".toast--".concat(state)).remove();
+    }, 3000);
+  });
 
-    _classPrivateMethodGet(this, _watchDarkMode, _watchDarkMode2).call(this);
-  }
+  this.$searchModalButton = (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_3__.$)('.nav-right__button');
+  this.$modalContainer = (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_3__.$)('.modal-container');
+  this.$toastWrapper = (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_3__.$)('.toast-wrapper');
+  this.$toggleSwitch = (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_3__.$)('.classroom__toggle');
 
-  (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(MainView, [{
-    key: "switchTheme",
-    value: function switchTheme(event) {
-      // const toggleChecked = event.target.checked;
-      // console.log('dark', dark);
-      if (event.target.checked) {
-        document.documentElement.setAttribute('user-theme', 'dark');
-        this.$toggleSwitch.checked = true;
-      } else {
-        document.documentElement.setAttribute('user-theme', 'light');
-        this.$toggleSwitch.checked = false;
-      }
+  _classPrivateMethodGet(this, _bindEvents, _bindEvents2).call(this);
 
-      console.log(event.target.checked); // document.body.classList.toggle('dark-mode');
-    }
-  }]);
-
-  return MainView;
-}();
+  _classPrivateMethodGet(this, _watchDarkMode, _watchDarkMode2).call(this);
+});
 
 function _bindEvents2() {
   var _this2 = this;
 
   (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_4__.on)(this.$searchModalButton, 'click', _classPrivateMethodGet(this, _openSearchModal, _openSearchModal2).bind(this));
   (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_4__.on)(this.$toggleSwitch, 'change', function (event) {
-    return _this2.switchTheme(event);
+    return _classPrivateMethodGet(_this2, _switchTheme, _switchTheme2).call(_this2, event);
   });
 }
 
@@ -1075,11 +1072,19 @@ function _openSearchModal2() {
 
 function _watchDarkMode2() {
   if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    console.log('dark');
     document.documentElement.setAttribute('user-theme', 'dark');
     this.$toggleSwitch.checked = true;
   } else {
-    console.log('else');
+    document.documentElement.setAttribute('user-theme', 'light');
+    this.$toggleSwitch.checked = false;
+  }
+}
+
+function _switchTheme2(event) {
+  if (event.target.checked) {
+    document.documentElement.setAttribute('user-theme', 'dark');
+    this.$toggleSwitch.checked = true;
+  } else {
     document.documentElement.setAttribute('user-theme', 'light');
     this.$toggleSwitch.checked = false;
   }
@@ -1469,6 +1474,7 @@ var TabView = /*#__PURE__*/function () {
     this.$unwatchedTab = (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_3__.$)('.unwatched-tab');
     this.$watchedTab = (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_3__.$)('.watched-tab');
     this.$confirmModalContainer = (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_3__.$)('.confirm-modal-container');
+    this.$noResult = (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_3__.$)('.no-result');
 
     _classPrivateMethodGet(this, _bindEvents, _bindEvents2).call(this);
   }
@@ -1511,16 +1517,16 @@ var TabView = /*#__PURE__*/function () {
   }, {
     key: "showUnwatchedTab",
     value: function showUnwatchedTab() {
-      this.$unwatchedButton.classList.add('active');
-      this.$watchedButton.classList.remove('active');
+      this.$unwatchedButton.classList.add('clicked');
+      this.$watchedButton.classList.remove('clicked');
       this.$unwatchedTab.classList.remove('hide');
       this.$watchedTab.classList.add('hide');
     }
   }, {
     key: "showWatchedTab",
     value: function showWatchedTab() {
-      this.$unwatchedButton.classList.remove('active');
-      this.$watchedButton.classList.add('active');
+      this.$unwatchedButton.classList.remove('clicked');
+      this.$watchedButton.classList.add('clicked');
       this.$watchedTab.classList.remove('hide');
       this.$unwatchedTab.classList.add('hide');
     }
@@ -1553,6 +1559,16 @@ var TabView = /*#__PURE__*/function () {
     key: "hideConfirmModal",
     value: function hideConfirmModal() {
       this.$confirmModalContainer.classList.add('hide');
+    }
+  }, {
+    key: "showEmptyTab",
+    value: function showEmptyTab() {
+      this.$noResult.classList.remove('hide');
+    }
+  }, {
+    key: "hideEmptyTab",
+    value: function hideEmptyTab() {
+      this.$noResult.classList.add('hide');
     }
   }]);
 
@@ -1667,7 +1683,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "body {\r\n  padding: 64px 0;\r\n  font-size: 16px;\r\n  background-color: var(--background);\r\n}\r\n\r\n.classroom-container {\r\n  max-width: 1020px;\r\n  margin: 0 auto;\r\n}\r\n\r\n.classroom-container__title {\r\n  text-align: center;\r\n  font-weight: bold;\r\n  font-size: 34px;\r\n  line-height: 36px;\r\n  margin-bottom: 64px;\r\n}\r\n\r\n.nav {\r\n  display: flex;\r\n  justify-content: space-between;\r\n}\r\n\r\n.button {\r\n  cursor: pointer;\r\n  border-radius: 4px;\r\n  border: none;\r\n  font-style: normal;\r\n  font-weight: bold;\r\n  font-size: 14px;\r\n}\r\n\r\n.bottom-target {\r\n  margin-top: 100px;\r\n  height: 100px;\r\n}\r\n\r\n.nav-left {\r\n  float: left;\r\n}\r\n\r\n.nav-right {\r\n  float: right;\r\n}\r\n\r\n.nav-left__button {\r\n  height: 36px;\r\n  padding: 10px;\r\n  background: var(--secondary-lighten);\r\n  border: 1px solid var(--secondary);\r\n}\r\n\r\n.nav-left__button--unwatched {\r\n  margin-right: -3px;\r\n  border-radius: 5px 0 0 5px;\r\n}\r\n\r\n.nav-left__button--watched {\r\n  margin-left: -3px;\r\n  border-radius: 0 5px 5px 0;\r\n}\r\n\r\n.nav-left__button:hover {\r\n  background: var(--active);\r\n}\r\n\r\n.nav-right__button {\r\n  height: 36px;\r\n  padding: 10px;\r\n  background: var(--primary);\r\n  color: var(--white);\r\n}\r\n\r\n.nav-right__button:hover {\r\n  background: var(--primary-darken);\r\n}\r\n\r\n.video-item__button {\r\n  width: 36px;\r\n  height: 36px;\r\n  position: absolute;\r\n  right: 40px;\r\n}\r\n\r\n.video-item__button:hover {\r\n  background: var(--active);\r\n}\r\n\r\n.video-item__button--delete {\r\n  right: 0;\r\n}\r\n\r\n.video-grid {\r\n  max-width: 1020px;\r\n  padding: 0;\r\n  margin: 40px 0;\r\n  display: grid;\r\n  grid-template-columns: repeat(4, 1fr);\r\n  gap: 30px 36px;\r\n}\r\n\r\n.active {\r\n  background: var(--active);\r\n}\r\n\r\n@media screen and (max-width: 1280px) {\r\n  .classroom-container {\r\n    width: 720px;\r\n  }\r\n  .saved-list-container {\r\n    width: 720px;\r\n  }\r\n  .video-grid {\r\n    grid-template-columns: repeat(3, 1fr);\r\n    gap: 30px 20px;\r\n  }\r\n\r\n  .video-item {\r\n    width: 100%;\r\n  }\r\n  .classroom-container__title {\r\n    font-size: 32px;\r\n  }\r\n}\r\n\r\n@media screen and (max-width: 960px) {\r\n  .classroom-container {\r\n    width: 480px;\r\n  }\r\n  .saved-list-container {\r\n    width: 480px;\r\n  }\r\n  .video-grid {\r\n    grid-template-columns: repeat(2, 1fr);\r\n  }\r\n  .classroom-container__title {\r\n    font-size: 30px;\r\n  }\r\n}\r\n\r\n@media screen and (max-width: 600px) {\r\n  .classroom-container {\r\n    width: 340px;\r\n  }\r\n  .saved-list-container {\r\n    width: 340px;\r\n  }\r\n  .video-item {\r\n    width: 340px !important;\r\n    margin: 0 0 30px;\r\n  }\r\n  .video-grid {\r\n    grid-template-columns: 1fr;\r\n    gap: 0;\r\n  }\r\n  .nav {\r\n    flex-direction: column;\r\n  }\r\n  .nav-left__button {\r\n    width: 50%;\r\n  }\r\n  .nav-right__button {\r\n    margin: 7px 0 0;\r\n    width: 100%;\r\n  }\r\n  .classroom-container__title {\r\n    font-size: 22px;\r\n  }\r\n}\r\n", "",{"version":3,"sources":["webpack://./src/css/app.css"],"names":[],"mappings":"AAAA;EACE,eAAe;EACf,eAAe;EACf,mCAAmC;AACrC;;AAEA;EACE,iBAAiB;EACjB,cAAc;AAChB;;AAEA;EACE,kBAAkB;EAClB,iBAAiB;EACjB,eAAe;EACf,iBAAiB;EACjB,mBAAmB;AACrB;;AAEA;EACE,aAAa;EACb,8BAA8B;AAChC;;AAEA;EACE,eAAe;EACf,kBAAkB;EAClB,YAAY;EACZ,kBAAkB;EAClB,iBAAiB;EACjB,eAAe;AACjB;;AAEA;EACE,iBAAiB;EACjB,aAAa;AACf;;AAEA;EACE,WAAW;AACb;;AAEA;EACE,YAAY;AACd;;AAEA;EACE,YAAY;EACZ,aAAa;EACb,oCAAoC;EACpC,kCAAkC;AACpC;;AAEA;EACE,kBAAkB;EAClB,0BAA0B;AAC5B;;AAEA;EACE,iBAAiB;EACjB,0BAA0B;AAC5B;;AAEA;EACE,yBAAyB;AAC3B;;AAEA;EACE,YAAY;EACZ,aAAa;EACb,0BAA0B;EAC1B,mBAAmB;AACrB;;AAEA;EACE,iCAAiC;AACnC;;AAEA;EACE,WAAW;EACX,YAAY;EACZ,kBAAkB;EAClB,WAAW;AACb;;AAEA;EACE,yBAAyB;AAC3B;;AAEA;EACE,QAAQ;AACV;;AAEA;EACE,iBAAiB;EACjB,UAAU;EACV,cAAc;EACd,aAAa;EACb,qCAAqC;EACrC,cAAc;AAChB;;AAEA;EACE,yBAAyB;AAC3B;;AAEA;EACE;IACE,YAAY;EACd;EACA;IACE,YAAY;EACd;EACA;IACE,qCAAqC;IACrC,cAAc;EAChB;;EAEA;IACE,WAAW;EACb;EACA;IACE,eAAe;EACjB;AACF;;AAEA;EACE;IACE,YAAY;EACd;EACA;IACE,YAAY;EACd;EACA;IACE,qCAAqC;EACvC;EACA;IACE,eAAe;EACjB;AACF;;AAEA;EACE;IACE,YAAY;EACd;EACA;IACE,YAAY;EACd;EACA;IACE,uBAAuB;IACvB,gBAAgB;EAClB;EACA;IACE,0BAA0B;IAC1B,MAAM;EACR;EACA;IACE,sBAAsB;EACxB;EACA;IACE,UAAU;EACZ;EACA;IACE,eAAe;IACf,WAAW;EACb;EACA;IACE,eAAe;EACjB;AACF","sourcesContent":["body {\r\n  padding: 64px 0;\r\n  font-size: 16px;\r\n  background-color: var(--background);\r\n}\r\n\r\n.classroom-container {\r\n  max-width: 1020px;\r\n  margin: 0 auto;\r\n}\r\n\r\n.classroom-container__title {\r\n  text-align: center;\r\n  font-weight: bold;\r\n  font-size: 34px;\r\n  line-height: 36px;\r\n  margin-bottom: 64px;\r\n}\r\n\r\n.nav {\r\n  display: flex;\r\n  justify-content: space-between;\r\n}\r\n\r\n.button {\r\n  cursor: pointer;\r\n  border-radius: 4px;\r\n  border: none;\r\n  font-style: normal;\r\n  font-weight: bold;\r\n  font-size: 14px;\r\n}\r\n\r\n.bottom-target {\r\n  margin-top: 100px;\r\n  height: 100px;\r\n}\r\n\r\n.nav-left {\r\n  float: left;\r\n}\r\n\r\n.nav-right {\r\n  float: right;\r\n}\r\n\r\n.nav-left__button {\r\n  height: 36px;\r\n  padding: 10px;\r\n  background: var(--secondary-lighten);\r\n  border: 1px solid var(--secondary);\r\n}\r\n\r\n.nav-left__button--unwatched {\r\n  margin-right: -3px;\r\n  border-radius: 5px 0 0 5px;\r\n}\r\n\r\n.nav-left__button--watched {\r\n  margin-left: -3px;\r\n  border-radius: 0 5px 5px 0;\r\n}\r\n\r\n.nav-left__button:hover {\r\n  background: var(--active);\r\n}\r\n\r\n.nav-right__button {\r\n  height: 36px;\r\n  padding: 10px;\r\n  background: var(--primary);\r\n  color: var(--white);\r\n}\r\n\r\n.nav-right__button:hover {\r\n  background: var(--primary-darken);\r\n}\r\n\r\n.video-item__button {\r\n  width: 36px;\r\n  height: 36px;\r\n  position: absolute;\r\n  right: 40px;\r\n}\r\n\r\n.video-item__button:hover {\r\n  background: var(--active);\r\n}\r\n\r\n.video-item__button--delete {\r\n  right: 0;\r\n}\r\n\r\n.video-grid {\r\n  max-width: 1020px;\r\n  padding: 0;\r\n  margin: 40px 0;\r\n  display: grid;\r\n  grid-template-columns: repeat(4, 1fr);\r\n  gap: 30px 36px;\r\n}\r\n\r\n.active {\r\n  background: var(--active);\r\n}\r\n\r\n@media screen and (max-width: 1280px) {\r\n  .classroom-container {\r\n    width: 720px;\r\n  }\r\n  .saved-list-container {\r\n    width: 720px;\r\n  }\r\n  .video-grid {\r\n    grid-template-columns: repeat(3, 1fr);\r\n    gap: 30px 20px;\r\n  }\r\n\r\n  .video-item {\r\n    width: 100%;\r\n  }\r\n  .classroom-container__title {\r\n    font-size: 32px;\r\n  }\r\n}\r\n\r\n@media screen and (max-width: 960px) {\r\n  .classroom-container {\r\n    width: 480px;\r\n  }\r\n  .saved-list-container {\r\n    width: 480px;\r\n  }\r\n  .video-grid {\r\n    grid-template-columns: repeat(2, 1fr);\r\n  }\r\n  .classroom-container__title {\r\n    font-size: 30px;\r\n  }\r\n}\r\n\r\n@media screen and (max-width: 600px) {\r\n  .classroom-container {\r\n    width: 340px;\r\n  }\r\n  .saved-list-container {\r\n    width: 340px;\r\n  }\r\n  .video-item {\r\n    width: 340px !important;\r\n    margin: 0 0 30px;\r\n  }\r\n  .video-grid {\r\n    grid-template-columns: 1fr;\r\n    gap: 0;\r\n  }\r\n  .nav {\r\n    flex-direction: column;\r\n  }\r\n  .nav-left__button {\r\n    width: 50%;\r\n  }\r\n  .nav-right__button {\r\n    margin: 7px 0 0;\r\n    width: 100%;\r\n  }\r\n  .classroom-container__title {\r\n    font-size: 22px;\r\n  }\r\n}\r\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "body {\r\n  padding: 64px 0;\r\n  font-size: 16px;\r\n  background-color: var(--background);\r\n}\r\n\r\n.classroom-container {\r\n  max-width: 1020px;\r\n  margin: 0 auto;\r\n}\r\n\r\n.classroom-container__title {\r\n  text-align: center;\r\n  font-weight: bold;\r\n  font-size: 34px;\r\n  line-height: 36px;\r\n  margin-bottom: 64px;\r\n}\r\n\r\n.nav {\r\n  display: flex;\r\n  justify-content: space-between;\r\n}\r\n\r\n.button {\r\n  cursor: pointer;\r\n  border-radius: 4px;\r\n  border: none;\r\n  font-style: normal;\r\n  font-weight: bold;\r\n  font-size: 14px;\r\n}\r\n\r\n.bottom-target {\r\n  margin-top: 100px;\r\n  height: 100px;\r\n}\r\n\r\n.nav-left {\r\n  float: left;\r\n}\r\n\r\n.nav-right {\r\n  float: right;\r\n}\r\n\r\n.nav-left__button {\r\n  height: 36px;\r\n  padding: 10px;\r\n  background: var(--secondary-lighten);\r\n  border: 1px solid var(--secondary);\r\n}\r\n\r\n.nav-left__button--unwatched {\r\n  margin-right: -3px;\r\n  border-radius: 5px 0 0 5px;\r\n}\r\n\r\n.nav-left__button--watched {\r\n  margin-left: -3px;\r\n  border-radius: 0 5px 5px 0;\r\n}\r\n\r\n.nav-left__button:hover {\r\n  background: var(--active);\r\n}\r\n\r\n.nav-right__button {\r\n  height: 36px;\r\n  padding: 10px;\r\n  background: var(--primary);\r\n  color: var(--white);\r\n}\r\n\r\n.nav-right__button:hover {\r\n  background: var(--primary-darken);\r\n}\r\n\r\n.video-item__button {\r\n  width: 36px;\r\n  height: 36px;\r\n  position: absolute;\r\n  right: 40px;\r\n}\r\n\r\n.video-item__button:hover {\r\n  background: var(--active);\r\n}\r\n\r\n.video-item__button--delete {\r\n  right: 0;\r\n}\r\n\r\n.video-grid {\r\n  max-width: 1020px;\r\n  padding: 0;\r\n  margin: 40px 0;\r\n  display: grid;\r\n  grid-template-columns: repeat(4, 1fr);\r\n  gap: 30px 36px;\r\n}\r\n\r\n.clicked {\r\n  background: var(--active);\r\n}\r\n\r\n@media screen and (max-width: 1280px) {\r\n  .classroom-container {\r\n    width: 720px;\r\n  }\r\n  .saved-list-container {\r\n    width: 720px;\r\n  }\r\n  .video-grid {\r\n    grid-template-columns: repeat(3, 1fr);\r\n    gap: 30px 20px;\r\n  }\r\n\r\n  .video-item {\r\n    width: 100%;\r\n  }\r\n  .classroom-container__title {\r\n    font-size: 32px;\r\n  }\r\n}\r\n\r\n@media screen and (max-width: 960px) {\r\n  .classroom-container {\r\n    width: 480px;\r\n  }\r\n  .saved-list-container {\r\n    width: 480px;\r\n  }\r\n  .video-grid {\r\n    grid-template-columns: repeat(2, 1fr);\r\n  }\r\n  .classroom-container__title {\r\n    font-size: 30px;\r\n  }\r\n}\r\n\r\n@media screen and (max-width: 600px) {\r\n  .classroom-container {\r\n    width: 340px;\r\n  }\r\n  .saved-list-container {\r\n    width: 340px;\r\n  }\r\n  .video-item {\r\n    width: 340px !important;\r\n    margin: 0 0 30px;\r\n  }\r\n  .video-grid {\r\n    grid-template-columns: 1fr;\r\n    gap: 0;\r\n  }\r\n  .nav {\r\n    flex-direction: column;\r\n  }\r\n  .nav-left__button {\r\n    width: 50%;\r\n  }\r\n  .nav-right__button {\r\n    margin: 7px 0 0;\r\n    width: 100%;\r\n  }\r\n  .classroom-container__title {\r\n    font-size: 22px;\r\n  }\r\n}\r\n", "",{"version":3,"sources":["webpack://./src/css/app.css"],"names":[],"mappings":"AAAA;EACE,eAAe;EACf,eAAe;EACf,mCAAmC;AACrC;;AAEA;EACE,iBAAiB;EACjB,cAAc;AAChB;;AAEA;EACE,kBAAkB;EAClB,iBAAiB;EACjB,eAAe;EACf,iBAAiB;EACjB,mBAAmB;AACrB;;AAEA;EACE,aAAa;EACb,8BAA8B;AAChC;;AAEA;EACE,eAAe;EACf,kBAAkB;EAClB,YAAY;EACZ,kBAAkB;EAClB,iBAAiB;EACjB,eAAe;AACjB;;AAEA;EACE,iBAAiB;EACjB,aAAa;AACf;;AAEA;EACE,WAAW;AACb;;AAEA;EACE,YAAY;AACd;;AAEA;EACE,YAAY;EACZ,aAAa;EACb,oCAAoC;EACpC,kCAAkC;AACpC;;AAEA;EACE,kBAAkB;EAClB,0BAA0B;AAC5B;;AAEA;EACE,iBAAiB;EACjB,0BAA0B;AAC5B;;AAEA;EACE,yBAAyB;AAC3B;;AAEA;EACE,YAAY;EACZ,aAAa;EACb,0BAA0B;EAC1B,mBAAmB;AACrB;;AAEA;EACE,iCAAiC;AACnC;;AAEA;EACE,WAAW;EACX,YAAY;EACZ,kBAAkB;EAClB,WAAW;AACb;;AAEA;EACE,yBAAyB;AAC3B;;AAEA;EACE,QAAQ;AACV;;AAEA;EACE,iBAAiB;EACjB,UAAU;EACV,cAAc;EACd,aAAa;EACb,qCAAqC;EACrC,cAAc;AAChB;;AAEA;EACE,yBAAyB;AAC3B;;AAEA;EACE;IACE,YAAY;EACd;EACA;IACE,YAAY;EACd;EACA;IACE,qCAAqC;IACrC,cAAc;EAChB;;EAEA;IACE,WAAW;EACb;EACA;IACE,eAAe;EACjB;AACF;;AAEA;EACE;IACE,YAAY;EACd;EACA;IACE,YAAY;EACd;EACA;IACE,qCAAqC;EACvC;EACA;IACE,eAAe;EACjB;AACF;;AAEA;EACE;IACE,YAAY;EACd;EACA;IACE,YAAY;EACd;EACA;IACE,uBAAuB;IACvB,gBAAgB;EAClB;EACA;IACE,0BAA0B;IAC1B,MAAM;EACR;EACA;IACE,sBAAsB;EACxB;EACA;IACE,UAAU;EACZ;EACA;IACE,eAAe;IACf,WAAW;EACb;EACA;IACE,eAAe;EACjB;AACF","sourcesContent":["body {\r\n  padding: 64px 0;\r\n  font-size: 16px;\r\n  background-color: var(--background);\r\n}\r\n\r\n.classroom-container {\r\n  max-width: 1020px;\r\n  margin: 0 auto;\r\n}\r\n\r\n.classroom-container__title {\r\n  text-align: center;\r\n  font-weight: bold;\r\n  font-size: 34px;\r\n  line-height: 36px;\r\n  margin-bottom: 64px;\r\n}\r\n\r\n.nav {\r\n  display: flex;\r\n  justify-content: space-between;\r\n}\r\n\r\n.button {\r\n  cursor: pointer;\r\n  border-radius: 4px;\r\n  border: none;\r\n  font-style: normal;\r\n  font-weight: bold;\r\n  font-size: 14px;\r\n}\r\n\r\n.bottom-target {\r\n  margin-top: 100px;\r\n  height: 100px;\r\n}\r\n\r\n.nav-left {\r\n  float: left;\r\n}\r\n\r\n.nav-right {\r\n  float: right;\r\n}\r\n\r\n.nav-left__button {\r\n  height: 36px;\r\n  padding: 10px;\r\n  background: var(--secondary-lighten);\r\n  border: 1px solid var(--secondary);\r\n}\r\n\r\n.nav-left__button--unwatched {\r\n  margin-right: -3px;\r\n  border-radius: 5px 0 0 5px;\r\n}\r\n\r\n.nav-left__button--watched {\r\n  margin-left: -3px;\r\n  border-radius: 0 5px 5px 0;\r\n}\r\n\r\n.nav-left__button:hover {\r\n  background: var(--active);\r\n}\r\n\r\n.nav-right__button {\r\n  height: 36px;\r\n  padding: 10px;\r\n  background: var(--primary);\r\n  color: var(--white);\r\n}\r\n\r\n.nav-right__button:hover {\r\n  background: var(--primary-darken);\r\n}\r\n\r\n.video-item__button {\r\n  width: 36px;\r\n  height: 36px;\r\n  position: absolute;\r\n  right: 40px;\r\n}\r\n\r\n.video-item__button:hover {\r\n  background: var(--active);\r\n}\r\n\r\n.video-item__button--delete {\r\n  right: 0;\r\n}\r\n\r\n.video-grid {\r\n  max-width: 1020px;\r\n  padding: 0;\r\n  margin: 40px 0;\r\n  display: grid;\r\n  grid-template-columns: repeat(4, 1fr);\r\n  gap: 30px 36px;\r\n}\r\n\r\n.clicked {\r\n  background: var(--active);\r\n}\r\n\r\n@media screen and (max-width: 1280px) {\r\n  .classroom-container {\r\n    width: 720px;\r\n  }\r\n  .saved-list-container {\r\n    width: 720px;\r\n  }\r\n  .video-grid {\r\n    grid-template-columns: repeat(3, 1fr);\r\n    gap: 30px 20px;\r\n  }\r\n\r\n  .video-item {\r\n    width: 100%;\r\n  }\r\n  .classroom-container__title {\r\n    font-size: 32px;\r\n  }\r\n}\r\n\r\n@media screen and (max-width: 960px) {\r\n  .classroom-container {\r\n    width: 480px;\r\n  }\r\n  .saved-list-container {\r\n    width: 480px;\r\n  }\r\n  .video-grid {\r\n    grid-template-columns: repeat(2, 1fr);\r\n  }\r\n  .classroom-container__title {\r\n    font-size: 30px;\r\n  }\r\n}\r\n\r\n@media screen and (max-width: 600px) {\r\n  .classroom-container {\r\n    width: 340px;\r\n  }\r\n  .saved-list-container {\r\n    width: 340px;\r\n  }\r\n  .video-item {\r\n    width: 340px !important;\r\n    margin: 0 0 30px;\r\n  }\r\n  .video-grid {\r\n    grid-template-columns: 1fr;\r\n    gap: 0;\r\n  }\r\n  .nav {\r\n    flex-direction: column;\r\n  }\r\n  .nav-left__button {\r\n    width: 50%;\r\n  }\r\n  .nav-right__button {\r\n    margin: 7px 0 0;\r\n    width: 100%;\r\n  }\r\n  .classroom-container__title {\r\n    font-size: 22px;\r\n  }\r\n}\r\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1701,33 +1717,6 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".confirm-modal {\r\n  position: fixed;
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/cjs.js!./src/css/darkMode.css":
-/*!********************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js!./src/css/darkMode.css ***!
-  \********************************************************************/
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/sourceMaps.js */ "./node_modules/css-loader/dist/runtime/sourceMaps.js");
-/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
-// Imports
-
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, "body.dark-mode {\r\n  background-color: var(--surface);\r\n  color: var(--white);\r\n}\r\n\r\nbody.dark-mode .button {\r\n  background-color: var(--dimmer);\r\n  color: var(--white);\r\n  border: 0;\r\n}\r\nbody.dark-mode .button:hover {\r\n  background-color: var(--active);\r\n}\r\nbody.dark-mode .button:focus {\r\n  background-color: var(--active);\r\n}\r\nbody.dark-mode .confirm-modal__form {\r\n  background-color: var(--surface);\r\n  border-radius: 5px;\r\n  border: 1px solid var(--secondary-darken);\r\n}\r\nbody.dark-mode .confirm-modal__content {\r\n  background-color: var(--surface);\r\n  border-radius: 5px;\r\n}\r\nbody.dark-mode .confirm-modal__delete-button {\r\n  background-color: var(--primary-darken);\r\n}\r\nbody.dark-mode .confirm-modal__delete-button:hover {\r\n  background-color: var(--primary);\r\n}\r\nbody.dark-mode .confirm-modal__cancel-button {\r\n  background-color: var(--secondary-darken);\r\n}\r\nbody.dark-mode .confirm-modal__cancel-button:hover {\r\n  background-color: var(--secondary);\r\n}\r\nbody.dark-mode .search-input__keyword {\r\n  background-color: var(--dimmer);\r\n  border: 0;\r\n  color: var(--white);\r\n}\r\n\r\nbody.dark-mode .search-input__search-button {\r\n  background-color: var(--primary-darkest);\r\n}\r\n\r\nbody.dark-mode .search-input__search-button:hover {\r\n  background-color: var(--primary-darken);\r\n}\r\nbody.dark-mode .saved-button {\r\n  background-color: var(--primary-darkest);\r\n}\r\nbody.dark-mode .video-item__save-button:hover {\r\n  background-color: var(--primary-darkest);\r\n}\r\n\r\nbody.dark-mode .skeleton .video-item__thumbnail,\r\nbody.dark-mode .skeleton .video-item__title,\r\nbody.dark-mode .skeleton .video-item__channel-name,\r\nbody.dark-mode .skeleton .video-item__published-date,\r\nbody.dark-mode .skeleton .video-item__save-button {\r\n  background-image: var(--skeleton-dark);\r\n}\r\n", "",{"version":3,"sources":["webpack://./src/css/darkMode.css"],"names":[],"mappings":"AAAA;EACE,gCAAgC;EAChC,mBAAmB;AACrB;;AAEA;EACE,+BAA+B;EAC/B,mBAAmB;EACnB,SAAS;AACX;AACA;EACE,+BAA+B;AACjC;AACA;EACE,+BAA+B;AACjC;AACA;EACE,gCAAgC;EAChC,kBAAkB;EAClB,yCAAyC;AAC3C;AACA;EACE,gCAAgC;EAChC,kBAAkB;AACpB;AACA;EACE,uCAAuC;AACzC;AACA;EACE,gCAAgC;AAClC;AACA;EACE,yCAAyC;AAC3C;AACA;EACE,kCAAkC;AACpC;AACA;EACE,+BAA+B;EAC/B,SAAS;EACT,mBAAmB;AACrB;;AAEA;EACE,wCAAwC;AAC1C;;AAEA;EACE,uCAAuC;AACzC;AACA;EACE,wCAAwC;AAC1C;AACA;EACE,wCAAwC;AAC1C;;AAEA;;;;;EAKE,sCAAsC;AACxC","sourcesContent":["body.dark-mode {\r\n  background-color: var(--surface);\r\n  color: var(--white);\r\n}\r\n\r\nbody.dark-mode .button {\r\n  background-color: var(--dimmer);\r\n  color: var(--white);\r\n  border: 0;\r\n}\r\nbody.dark-mode .button:hover {\r\n  background-color: var(--active);\r\n}\r\nbody.dark-mode .button:focus {\r\n  background-color: var(--active);\r\n}\r\nbody.dark-mode .confirm-modal__form {\r\n  background-color: var(--surface);\r\n  border-radius: 5px;\r\n  border: 1px solid var(--secondary-darken);\r\n}\r\nbody.dark-mode .confirm-modal__content {\r\n  background-color: var(--surface);\r\n  border-radius: 5px;\r\n}\r\nbody.dark-mode .confirm-modal__delete-button {\r\n  background-color: var(--primary-darken);\r\n}\r\nbody.dark-mode .confirm-modal__delete-button:hover {\r\n  background-color: var(--primary);\r\n}\r\nbody.dark-mode .confirm-modal__cancel-button {\r\n  background-color: var(--secondary-darken);\r\n}\r\nbody.dark-mode .confirm-modal__cancel-button:hover {\r\n  background-color: var(--secondary);\r\n}\r\nbody.dark-mode .search-input__keyword {\r\n  background-color: var(--dimmer);\r\n  border: 0;\r\n  color: var(--white);\r\n}\r\n\r\nbody.dark-mode .search-input__search-button {\r\n  background-color: var(--primary-darkest);\r\n}\r\n\r\nbody.dark-mode .search-input__search-button:hover {\r\n  background-color: var(--primary-darken);\r\n}\r\nbody.dark-mode .saved-button {\r\n  background-color: var(--primary-darkest);\r\n}\r\nbody.dark-mode .video-item__save-button:hover {\r\n  background-color: var(--primary-darkest);\r\n}\r\n\r\nbody.dark-mode .skeleton .video-item__thumbnail,\r\nbody.dark-mode .skeleton .video-item__title,\r\nbody.dark-mode .skeleton .video-item__channel-name,\r\nbody.dark-mode .skeleton .video-item__published-date,\r\nbody.dark-mode .skeleton .video-item__save-button {\r\n  background-image: var(--skeleton-dark);\r\n}\r\n"],"sourceRoot":""}]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
 /***/ "./node_modules/css-loader/dist/cjs.js!./src/css/index.css":
 /*!*****************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js!./src/css/index.css ***!
@@ -1750,10 +1739,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_css_loader_dist_cjs_js_confirmModal_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! -!../../node_modules/css-loader/dist/cjs.js!./confirmModal.css */ "./node_modules/css-loader/dist/cjs.js!./src/css/confirmModal.css");
 /* harmony import */ var _node_modules_css_loader_dist_cjs_js_toast_css__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! -!../../node_modules/css-loader/dist/cjs.js!./toast.css */ "./node_modules/css-loader/dist/cjs.js!./src/css/toast.css");
 /* harmony import */ var _node_modules_css_loader_dist_cjs_js_toggle_css__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! -!../../node_modules/css-loader/dist/cjs.js!./toggle.css */ "./node_modules/css-loader/dist/cjs.js!./src/css/toggle.css");
-/* harmony import */ var _node_modules_css_loader_dist_cjs_js_darkMode_css__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! -!../../node_modules/css-loader/dist/cjs.js!./darkMode.css */ "./node_modules/css-loader/dist/cjs.js!./src/css/darkMode.css");
-/* harmony import */ var _node_modules_css_loader_dist_cjs_js_scrollBar_css__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! -!../../node_modules/css-loader/dist/cjs.js!./scrollBar.css */ "./node_modules/css-loader/dist/cjs.js!./src/css/scrollBar.css");
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_scrollBar_css__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! -!../../node_modules/css-loader/dist/cjs.js!./scrollBar.css */ "./node_modules/css-loader/dist/cjs.js!./src/css/scrollBar.css");
 // Imports
-
 
 
 
@@ -1772,10 +1759,9 @@ ___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_skeleton_css__WEB
 ___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_confirmModal_css__WEBPACK_IMPORTED_MODULE_6__["default"]);
 ___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_toast_css__WEBPACK_IMPORTED_MODULE_7__["default"]);
 ___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_toggle_css__WEBPACK_IMPORTED_MODULE_8__["default"]);
-___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_darkMode_css__WEBPACK_IMPORTED_MODULE_9__["default"]);
-___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_scrollBar_css__WEBPACK_IMPORTED_MODULE_10__["default"]);
+___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_scrollBar_css__WEBPACK_IMPORTED_MODULE_9__["default"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "* {\r\n  margin: 0;\r\n  padding: 0;\r\n  box-sizing: border-box;\r\n}\r\n\r\nol,\r\nul {\r\n  list-style: none;\r\n}\r\n\r\nhtml,\r\nbody {\r\n  height: 100%;\r\n  -webkit-font-smoothing: antialiased;\r\n  color: var(--font);\r\n}\r\n\r\ninput,\r\nbutton,\r\ntextarea,\r\nselect {\r\n  font: inherit;\r\n  background-color: var(--secondary-lighten);\r\n  color: var(--font);\r\n}\r\n\r\nbutton:hover {\r\n  background-color: var(--secondary-darken);\r\n}\r\n", "",{"version":3,"sources":["webpack://./src/css/index.css"],"names":[],"mappings":"AAUA;EACE,SAAS;EACT,UAAU;EACV,sBAAsB;AACxB;;AAEA;;EAEE,gBAAgB;AAClB;;AAEA;;EAEE,YAAY;EACZ,mCAAmC;EACnC,kBAAkB;AACpB;;AAEA;;;;EAIE,aAAa;EACb,0CAA0C;EAC1C,kBAAkB;AACpB;;AAEA;EACE,yCAAyC;AAC3C","sourcesContent":["@import './root.css';\r\n@import './app.css';\r\n@import './modal.css';\r\n@import './skeleton.css';\r\n@import './confirmModal.css';\r\n@import './toast.css';\r\n@import './toggle.css';\r\n@import './darkMode.css';\r\n@import './scrollBar.css';\r\n\r\n* {\r\n  margin: 0;\r\n  padding: 0;\r\n  box-sizing: border-box;\r\n}\r\n\r\nol,\r\nul {\r\n  list-style: none;\r\n}\r\n\r\nhtml,\r\nbody {\r\n  height: 100%;\r\n  -webkit-font-smoothing: antialiased;\r\n  color: var(--font);\r\n}\r\n\r\ninput,\r\nbutton,\r\ntextarea,\r\nselect {\r\n  font: inherit;\r\n  background-color: var(--secondary-lighten);\r\n  color: var(--font);\r\n}\r\n\r\nbutton:hover {\r\n  background-color: var(--secondary-darken);\r\n}\r\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "* {\r\n  margin: 0;\r\n  padding: 0;\r\n  box-sizing: border-box;\r\n}\r\n\r\nol,\r\nul {\r\n  list-style: none;\r\n}\r\n\r\nhtml,\r\nbody {\r\n  height: 100%;\r\n  -webkit-font-smoothing: antialiased;\r\n  color: var(--font);\r\n}\r\n\r\ninput,\r\nbutton,\r\ntextarea,\r\nselect {\r\n  font: inherit;\r\n  background-color: var(--secondary-lighten);\r\n  color: var(--font);\r\n}\r\n\r\nbutton:hover {\r\n  background-color: var(--secondary-darken);\r\n}\r\n", "",{"version":3,"sources":["webpack://./src/css/index.css"],"names":[],"mappings":"AASA;EACE,SAAS;EACT,UAAU;EACV,sBAAsB;AACxB;;AAEA;;EAEE,gBAAgB;AAClB;;AAEA;;EAEE,YAAY;EACZ,mCAAmC;EACnC,kBAAkB;AACpB;;AAEA;;;;EAIE,aAAa;EACb,0CAA0C;EAC1C,kBAAkB;AACpB;;AAEA;EACE,yCAAyC;AAC3C","sourcesContent":["@import './root.css';\r\n@import './app.css';\r\n@import './modal.css';\r\n@import './skeleton.css';\r\n@import './confirmModal.css';\r\n@import './toast.css';\r\n@import './toggle.css';\r\n@import './scrollBar.css';\r\n\r\n* {\r\n  margin: 0;\r\n  padding: 0;\r\n  box-sizing: border-box;\r\n}\r\n\r\nol,\r\nul {\r\n  list-style: none;\r\n}\r\n\r\nhtml,\r\nbody {\r\n  height: 100%;\r\n  -webkit-font-smoothing: antialiased;\r\n  color: var(--font);\r\n}\r\n\r\ninput,\r\nbutton,\r\ntextarea,\r\nselect {\r\n  font: inherit;\r\n  background-color: var(--secondary-lighten);\r\n  color: var(--font);\r\n}\r\n\r\nbutton:hover {\r\n  background-color: var(--secondary-darken);\r\n}\r\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
