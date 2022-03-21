@@ -165,10 +165,14 @@ var _checkDeleteVideo = /*#__PURE__*/new WeakSet();
 
 var _deleteVideo = /*#__PURE__*/new WeakMap();
 
+var _showEmpty = /*#__PURE__*/new WeakSet();
+
 var Controller = /*#__PURE__*/(0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(function Controller() {
   var _this = this;
 
   (0,_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__["default"])(this, Controller);
+
+  _classPrivateMethodInitSpec(this, _showEmpty);
 
   _classPrivateMethodInitSpec(this, _checkDeleteVideo);
 
@@ -198,6 +202,8 @@ var Controller = /*#__PURE__*/(0,_babel_runtime_helpers_createClass__WEBPACK_IMP
       _this.tabView.removeVideo(watchedVideoId);
 
       _this.mainView.toastNotification('success', _constants_successMessages_js__WEBPACK_IMPORTED_MODULE_15__["default"].MOVED_TO_WATCHED);
+
+      _classPrivateMethodGet(_this, _showEmpty, _showEmpty2).call(_this);
     }
   });
 
@@ -214,7 +220,7 @@ var Controller = /*#__PURE__*/(0,_babel_runtime_helpers_createClass__WEBPACK_IMP
 
       _this.mainView.toastNotification('success', _constants_successMessages_js__WEBPACK_IMPORTED_MODULE_15__["default"].DELETED);
 
-      _classPrivateMethodGet(_this, _renderUnwatchedTab, _renderUnwatchedTab2).call(_this);
+      _classPrivateMethodGet(_this, _showEmpty, _showEmpty2).call(_this);
     }
   });
 
@@ -424,6 +430,8 @@ function _checkUnwatchedVideo2(event) {
   this.video.setUnwatchedVideoItem(unwatchedVideoId);
   this.tabView.removeVideo(unwatchedVideoId);
   this.mainView.toastNotification('success', _constants_successMessages_js__WEBPACK_IMPORTED_MODULE_15__["default"].MOVED_TO_UNWATCHED);
+
+  _classPrivateMethodGet(this, _showEmpty, _showEmpty2).call(this);
 }
 
 function _checkDeleteVideo2(event) {
@@ -433,6 +441,21 @@ function _checkDeleteVideo2(event) {
   this.tabView.$savedListContainer.addEventListener('@delete-video', (0,_babel_runtime_helpers_classPrivateFieldGet__WEBPACK_IMPORTED_MODULE_3__["default"])(this, _deleteVideo), {
     once: true
   });
+}
+
+function _showEmpty2() {
+  var unwatchedVideoItems = this.video.savedVideoItems.filter(function (item) {
+    return !item.watched;
+  });
+  var watchedVideoItems = this.video.savedVideoItems.filter(function (item) {
+    return item.watched;
+  });
+
+  if (unwatchedVideoItems.length !== 0 && watchedVideoItems.length !== 0) {
+    this.tabView.hideEmptyTab();
+  } else {
+    this.tabView.showEmptyTab();
+  }
 }
 
 
