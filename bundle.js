@@ -107,14 +107,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _views_MainView_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./views/MainView.js */ "./src/js/views/MainView.js");
-/* harmony import */ var _views_SearchInputView_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./views/SearchInputView.js */ "./src/js/views/SearchInputView.js");
-/* harmony import */ var _views_SearchResultView_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./views/SearchResultView.js */ "./src/js/views/SearchResultView.js");
-/* harmony import */ var _models_Video_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./models/Video.js */ "./src/js/models/Video.js");
-/* harmony import */ var _utils_event_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./utils/event.js */ "./src/js/utils/event.js");
-/* harmony import */ var _constants_video_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../constants/video.js */ "./src/constants/video.js");
-/* harmony import */ var _utils_validator_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./utils/validator.js */ "./src/js/utils/validator.js");
-/* harmony import */ var _utils_fetch_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./utils/fetch.js */ "./src/js/utils/fetch.js");
-/* harmony import */ var _constants_successMessages_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../constants/successMessages.js */ "./src/constants/successMessages.js");
+/* harmony import */ var _views_TabView_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./views/TabView.js */ "./src/js/views/TabView.js");
+/* harmony import */ var _views_SearchModalView_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./views/SearchModalView.js */ "./src/js/views/SearchModalView.js");
+/* harmony import */ var _views_SearchInputView_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./views/SearchInputView.js */ "./src/js/views/SearchInputView.js");
+/* harmony import */ var _views_SearchResultView_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./views/SearchResultView.js */ "./src/js/views/SearchResultView.js");
+/* harmony import */ var _models_Video_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./models/Video.js */ "./src/js/models/Video.js");
+/* harmony import */ var _utils_event_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./utils/event.js */ "./src/js/utils/event.js");
+/* harmony import */ var _constants_video_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../constants/video.js */ "./src/constants/video.js");
+/* harmony import */ var _utils_validator_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./utils/validator.js */ "./src/js/utils/validator.js");
+/* harmony import */ var _utils_fetch_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./utils/fetch.js */ "./src/js/utils/fetch.js");
+/* harmony import */ var _constants_successMessages_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../constants/successMessages.js */ "./src/constants/successMessages.js");
 
 
 
@@ -128,6 +130,8 @@ function _classPrivateMethodInitSpec(obj, privateSet) { _checkPrivateRedeclarati
 function _checkPrivateRedeclaration(obj, privateCollection) { if (privateCollection.has(obj)) { throw new TypeError("Cannot initialize the same private elements twice on an object"); } }
 
 function _classPrivateMethodGet(receiver, privateSet, fn) { if (!privateSet.has(receiver)) { throw new TypeError("attempted to get private field on non-instance"); } return fn; }
+
+
 
 
 
@@ -191,9 +195,9 @@ var Controller = /*#__PURE__*/(0,_babel_runtime_helpers_createClass__WEBPACK_IMP
 
       _this.video.setWatchedVideoItem(watchedVideoId);
 
-      _this.mainView.removeVideo(watchedVideoId);
+      _this.tabView.removeVideo(watchedVideoId);
 
-      _this.mainView.toastNotification('success', _constants_successMessages_js__WEBPACK_IMPORTED_MODULE_13__["default"].MOVED_TO_WATCHED);
+      _this.mainView.toastNotification('success', _constants_successMessages_js__WEBPACK_IMPORTED_MODULE_15__["default"].MOVED_TO_WATCHED);
     }
   });
 
@@ -204,18 +208,20 @@ var Controller = /*#__PURE__*/(0,_babel_runtime_helpers_createClass__WEBPACK_IMP
 
       _this.video.setDeletedVideoItem(deletedVideoId);
 
-      _this.mainView.removeVideo(deletedVideoId);
+      _this.tabView.removeVideo(deletedVideoId);
 
-      _this.mainView.hideConfirmModal();
+      _this.tabView.hideConfirmModal();
 
-      _this.mainView.toastNotification('success', _constants_successMessages_js__WEBPACK_IMPORTED_MODULE_13__["default"].DELETED);
+      _this.mainView.toastNotification('success', _constants_successMessages_js__WEBPACK_IMPORTED_MODULE_15__["default"].DELETED);
     }
   });
 
-  this.video = new _models_Video_js__WEBPACK_IMPORTED_MODULE_8__["default"]();
+  this.video = new _models_Video_js__WEBPACK_IMPORTED_MODULE_10__["default"]();
   this.mainView = new _views_MainView_js__WEBPACK_IMPORTED_MODULE_5__["default"]();
-  this.searchInputView = new _views_SearchInputView_js__WEBPACK_IMPORTED_MODULE_6__["default"]();
-  this.searchResultView = new _views_SearchResultView_js__WEBPACK_IMPORTED_MODULE_7__["default"]();
+  this.tabView = new _views_TabView_js__WEBPACK_IMPORTED_MODULE_6__["default"]();
+  this.searchModalView = new _views_SearchModalView_js__WEBPACK_IMPORTED_MODULE_7__["default"]();
+  this.searchInputView = new _views_SearchInputView_js__WEBPACK_IMPORTED_MODULE_8__["default"]();
+  this.searchResultView = new _views_SearchResultView_js__WEBPACK_IMPORTED_MODULE_9__["default"]();
 
   _classPrivateMethodGet(this, _subscribeViewEvents, _subscribeViewEvents2).call(this);
 
@@ -223,15 +229,15 @@ var Controller = /*#__PURE__*/(0,_babel_runtime_helpers_createClass__WEBPACK_IMP
 });
 
 function _subscribeViewEvents2() {
-  (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_9__.on)(this.searchInputView.$searchButton, '@search', _classPrivateMethodGet(this, _searchVideo, _searchVideo2).bind(this));
-  (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_9__.on)(this.searchResultView.$searchTarget, '@scroll-bottom', _classPrivateMethodGet(this, _scrollNextVideos, _scrollNextVideos2).bind(this));
-  (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_9__.on)(this.searchResultView.$searchTarget, '@save-video', _classPrivateMethodGet(this, _saveVideo, _saveVideo2).bind(this));
-  (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_9__.on)(this.mainView.$unwatchedButton, '@show-unwatched-tab', _classPrivateMethodGet(this, _renderUnwatchedTab, _renderUnwatchedTab2).bind(this));
-  (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_9__.on)(this.mainView.$watchedButton, '@show-watched-tab', _classPrivateMethodGet(this, _renderWatchedTab, _renderWatchedTab2).bind(this));
-  (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_9__.on)(this.mainView.$unwatchedTab, '@check-watched', (0,_babel_runtime_helpers_classPrivateFieldGet__WEBPACK_IMPORTED_MODULE_3__["default"])(this, _checkWatchedVideo));
-  (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_9__.on)(this.mainView.$watchedTab, '@check-unwatched', _classPrivateMethodGet(this, _checkUnwatchedVideo, _checkUnwatchedVideo2).bind(this));
-  (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_9__.on)(this.mainView.$unwatchedTab, '@check-delete', _classPrivateMethodGet(this, _checkDeleteVideo, _checkDeleteVideo2).bind(this));
-  (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_9__.on)(this.mainView.$watchedTab, '@check-delete', _classPrivateMethodGet(this, _checkDeleteVideo, _checkDeleteVideo2).bind(this));
+  (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_11__.on)(this.searchInputView.$searchButton, '@search', _classPrivateMethodGet(this, _searchVideo, _searchVideo2).bind(this));
+  (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_11__.on)(this.searchResultView.$searchTarget, '@scroll-bottom', _classPrivateMethodGet(this, _scrollNextVideos, _scrollNextVideos2).bind(this));
+  (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_11__.on)(this.searchResultView.$searchTarget, '@save-video', _classPrivateMethodGet(this, _saveVideo, _saveVideo2).bind(this));
+  (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_11__.on)(this.tabView.$unwatchedButton, '@show-unwatched-tab', _classPrivateMethodGet(this, _renderUnwatchedTab, _renderUnwatchedTab2).bind(this));
+  (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_11__.on)(this.tabView.$watchedButton, '@show-watched-tab', _classPrivateMethodGet(this, _renderWatchedTab, _renderWatchedTab2).bind(this));
+  (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_11__.on)(this.tabView.$unwatchedTab, '@check-watched', (0,_babel_runtime_helpers_classPrivateFieldGet__WEBPACK_IMPORTED_MODULE_3__["default"])(this, _checkWatchedVideo));
+  (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_11__.on)(this.tabView.$watchedTab, '@check-unwatched', _classPrivateMethodGet(this, _checkUnwatchedVideo, _checkUnwatchedVideo2).bind(this));
+  (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_11__.on)(this.tabView.$unwatchedTab, '@check-delete', _classPrivateMethodGet(this, _checkDeleteVideo, _checkDeleteVideo2).bind(this));
+  (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_11__.on)(this.tabView.$watchedTab, '@check-delete', _classPrivateMethodGet(this, _checkDeleteVideo, _checkDeleteVideo2).bind(this));
 }
 
 function _searchVideo2(_x) {
@@ -261,7 +267,7 @@ function _searchVideo3() {
           case 10:
             this.searchResultView.showSkeleton();
             _context.next = 13;
-            return (0,_utils_fetch_js__WEBPACK_IMPORTED_MODULE_12__.fetchYoutubeApi)(keyword);
+            return (0,_utils_fetch_js__WEBPACK_IMPORTED_MODULE_14__.fetchYoutubeApi)(keyword);
 
           case 13:
             fetchedVideos = _context.sent;
@@ -323,7 +329,7 @@ function _scrollNextVideos3() {
             this.searchResultView.stopObserve();
             this.searchResultView.showSkeleton();
             _context2.next = 4;
-            return (0,_utils_fetch_js__WEBPACK_IMPORTED_MODULE_12__.fetchYoutubeApi)(this.video.keyword, this.video.nextPageToken);
+            return (0,_utils_fetch_js__WEBPACK_IMPORTED_MODULE_14__.fetchYoutubeApi)(this.video.keyword, this.video.nextPageToken);
 
           case 4:
             fetchedVideos = _context2.sent;
@@ -343,7 +349,7 @@ function _scrollNextVideos3() {
             this.video.accumulateVideoItems();
             this.video.updateNewVideoItems();
 
-            if (!(this.video.newVideoItems.length < _constants_video_js__WEBPACK_IMPORTED_MODULE_10__["default"].MINIMUM_FETCHED_VIDEO_COUNT)) {
+            if (!(this.video.newVideoItems.length < _constants_video_js__WEBPACK_IMPORTED_MODULE_12__["default"].MINIMUM_FETCHED_VIDEO_COUNT)) {
               _context2.next = 18;
               break;
             }
@@ -371,7 +377,7 @@ function _scrollNextVideos3() {
 
 function _saveVideo2(event) {
   try {
-    (0,_utils_validator_js__WEBPACK_IMPORTED_MODULE_11__.checkExceedLimit)(this.video.savedVideoItems);
+    (0,_utils_validator_js__WEBPACK_IMPORTED_MODULE_13__.checkExceedLimit)(this.video.savedVideoItems);
   } catch (error) {
     this.mainView.toastNotification('error', error.message);
     return;
@@ -380,37 +386,37 @@ function _saveVideo2(event) {
   this.searchResultView.changeSaveButtonStyle(event.detail.buttonElement);
   var savedId = event.detail.savedId;
   this.video.setItemsLocalStorage(savedId);
-  this.mainView.toastNotification('success', _constants_successMessages_js__WEBPACK_IMPORTED_MODULE_13__["default"].SAVED);
+  this.mainView.toastNotification('success', _constants_successMessages_js__WEBPACK_IMPORTED_MODULE_15__["default"].SAVED);
 }
 
 function _renderUnwatchedTab2() {
   var unwatchedVideoItems = this.video.savedVideoItems.filter(function (item) {
-    return item.watched === false;
+    return !item.watched;
   });
-  this.mainView.renderUnwatchedVideoItems(unwatchedVideoItems);
-  this.mainView.showUnwatchedTab();
+  this.tabView.renderUnwatchedVideoItems(unwatchedVideoItems);
+  this.tabView.showUnwatchedTab();
 }
 
 function _renderWatchedTab2() {
   var watchedVideoItems = this.video.savedVideoItems.filter(function (item) {
-    return item.watched === true;
+    return item.watched;
   });
-  this.mainView.renderWatchedVideoItems(watchedVideoItems, this.mainView.$watchedTab);
-  this.mainView.showWatchedTab();
+  this.tabView.renderWatchedVideoItems(watchedVideoItems, this.tabView.$watchedTab);
+  this.tabView.showWatchedTab();
 }
 
 function _checkUnwatchedVideo2(event) {
   var unwatchedVideoId = event.detail.videoId;
   this.video.setUnwatchedVideoItem(unwatchedVideoId);
-  this.mainView.removeVideo(unwatchedVideoId);
-  this.mainView.toastNotification('success', _constants_successMessages_js__WEBPACK_IMPORTED_MODULE_13__["default"].MOVED_TO_UNWATCHED);
+  this.tabView.removeVideo(unwatchedVideoId);
+  this.mainView.toastNotification('success', _constants_successMessages_js__WEBPACK_IMPORTED_MODULE_15__["default"].MOVED_TO_UNWATCHED);
 }
 
 function _checkDeleteVideo2(event) {
   var videoId = event.detail.videoId;
   var title = this.video.getVideoTitleBy(videoId);
-  this.mainView.confirmDelete(videoId, title);
-  this.mainView.$modalContainer.addEventListener('@delete-video', (0,_babel_runtime_helpers_classPrivateFieldGet__WEBPACK_IMPORTED_MODULE_3__["default"])(this, _deleteVideo), {
+  this.tabView.confirmDelete(videoId, title);
+  this.tabView.$savedListContainer.addEventListener('@delete-video', (0,_babel_runtime_helpers_classPrivateFieldGet__WEBPACK_IMPORTED_MODULE_3__["default"])(this, _deleteVideo), {
     once: true
   });
 }
@@ -470,6 +476,8 @@ var _nextPageToken = /*#__PURE__*/new WeakMap();
 
 var _savedVideoItems = /*#__PURE__*/new WeakMap();
 
+var _getSavedNewItem = /*#__PURE__*/new WeakSet();
+
 var _saveLocalStorage = /*#__PURE__*/new WeakSet();
 
 var Video = /*#__PURE__*/function () {
@@ -483,6 +491,8 @@ var Video = /*#__PURE__*/function () {
     (0,_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__["default"])(this, Video);
 
     _classPrivateMethodInitSpec(this, _saveLocalStorage);
+
+    _classPrivateMethodInitSpec(this, _getSavedNewItem);
 
     _classPrivateFieldInitSpec(this, _keyword, {
       writable: true,
@@ -597,30 +607,10 @@ var Video = /*#__PURE__*/function () {
       try {
         for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
           var newItem = _step2.value;
-          var isFindSavedItem = false;
 
-          var _iterator3 = _createForOfIteratorHelper((0,_babel_runtime_helpers_classPrivateFieldGet__WEBPACK_IMPORTED_MODULE_3__["default"])(this, _savedVideoItems)),
-              _step3;
+          var savedNewItem = _classPrivateMethodGet(this, _getSavedNewItem, _getSavedNewItem2).call(this, newItem);
 
-          try {
-            for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
-              var savedItem = _step3.value;
-
-              if (newItem.videoId === savedItem.videoId) {
-                isFindSavedItem = true;
-                updatedNewVideoItems.push(savedItem);
-                break;
-              }
-            }
-          } catch (err) {
-            _iterator3.e(err);
-          } finally {
-            _iterator3.f();
-          }
-
-          if (isFindSavedItem === false) {
-            updatedNewVideoItems.push(newItem);
-          }
+          updatedNewVideoItems.push(savedNewItem);
         }
       } catch (err) {
         _iterator2.e(err);
@@ -703,6 +693,27 @@ var Video = /*#__PURE__*/function () {
 
   return Video;
 }();
+
+function _getSavedNewItem2(newItem) {
+  var _iterator3 = _createForOfIteratorHelper((0,_babel_runtime_helpers_classPrivateFieldGet__WEBPACK_IMPORTED_MODULE_3__["default"])(this, _savedVideoItems)),
+      _step3;
+
+  try {
+    for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+      var savedItem = _step3.value;
+
+      if (newItem.videoId === savedItem.videoId) {
+        return savedItem;
+      }
+    }
+  } catch (err) {
+    _iterator3.e(err);
+  } finally {
+    _iterator3.f();
+  }
+
+  return newItem;
+}
 
 function _saveLocalStorage2() {
   localStorage.setItem('saved-video', JSON.stringify(this.savedVideoItems));
@@ -973,16 +984,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "./node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
 /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ "./node_modules/@babel/runtime/helpers/esm/createClass.js");
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
-/* harmony import */ var _babel_runtime_helpers_classPrivateFieldGet__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/classPrivateFieldGet */ "./node_modules/@babel/runtime/helpers/esm/classPrivateFieldGet.js");
-/* harmony import */ var _utils_dom_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils/dom.js */ "./src/js/utils/dom.js");
-/* harmony import */ var _utils_event_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../utils/event.js */ "./src/js/utils/event.js");
-/* harmony import */ var _Template_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Template.js */ "./src/js/views/Template.js");
+/* harmony import */ var _utils_dom_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/dom.js */ "./src/js/utils/dom.js");
+/* harmony import */ var _utils_event_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils/event.js */ "./src/js/utils/event.js");
 
 
 
-
-
-function _classPrivateFieldInitSpec(obj, privateMap, value) { _checkPrivateRedeclaration(obj, privateMap); privateMap.set(obj, value); }
 
 function _classPrivateMethodInitSpec(obj, privateSet) { _checkPrivateRedeclaration(obj, privateSet); privateSet.add(obj); }
 
@@ -993,28 +999,11 @@ function _classPrivateMethodGet(receiver, privateSet, fn) { if (!privateSet.has(
 
 
 
-
 var _bindEvents = /*#__PURE__*/new WeakSet();
 
 var _openSearchModal = /*#__PURE__*/new WeakSet();
 
-var _closeModal = /*#__PURE__*/new WeakSet();
-
-var _handleUnwatchedButton = /*#__PURE__*/new WeakSet();
-
-var _handleWatchedButton = /*#__PURE__*/new WeakSet();
-
-var _watchVideoButton = /*#__PURE__*/new WeakMap();
-
-var _unwatchVideoButton = /*#__PURE__*/new WeakMap();
-
-var _deleteVideoButton = /*#__PURE__*/new WeakMap();
-
-var _handleCancelButton = /*#__PURE__*/new WeakSet();
-
-var _handleDeleteButton = /*#__PURE__*/new WeakSet();
-
-var _showConfirmModal = /*#__PURE__*/new WeakSet();
+var _watchDarkMode = /*#__PURE__*/new WeakSet();
 
 var MainView = /*#__PURE__*/function () {
   function MainView() {
@@ -1022,57 +1011,11 @@ var MainView = /*#__PURE__*/function () {
 
     (0,_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__["default"])(this, MainView);
 
-    _classPrivateMethodInitSpec(this, _showConfirmModal);
-
-    _classPrivateMethodInitSpec(this, _handleDeleteButton);
-
-    _classPrivateMethodInitSpec(this, _handleCancelButton);
-
-    _classPrivateMethodInitSpec(this, _handleWatchedButton);
-
-    _classPrivateMethodInitSpec(this, _handleUnwatchedButton);
-
-    _classPrivateMethodInitSpec(this, _closeModal);
+    _classPrivateMethodInitSpec(this, _watchDarkMode);
 
     _classPrivateMethodInitSpec(this, _openSearchModal);
 
     _classPrivateMethodInitSpec(this, _bindEvents);
-
-    _classPrivateFieldInitSpec(this, _watchVideoButton, {
-      writable: true,
-      value: function value(event) {
-        if (event.target.classList.contains('video-item__button--watched')) {
-          var videoId = event.target.id;
-          (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_5__.emit)(event.currentTarget, '@check-watched', {
-            videoId: videoId
-          });
-        }
-      }
-    });
-
-    _classPrivateFieldInitSpec(this, _unwatchVideoButton, {
-      writable: true,
-      value: function value(event) {
-        if (event.target.classList.contains('video-item__button--watched')) {
-          var videoId = event.target.id;
-          (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_5__.emit)(event.currentTarget, '@check-unwatched', {
-            videoId: videoId
-          });
-        }
-      }
-    });
-
-    _classPrivateFieldInitSpec(this, _deleteVideoButton, {
-      writable: true,
-      value: function value(event) {
-        if (event.target.classList.contains('video-item__button--delete')) {
-          var videoId = event.target.id;
-          (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_5__.emit)(event.currentTarget, '@check-delete', {
-            videoId: videoId
-          });
-        }
-      }
-    });
 
     (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])(this, "toastNotification", function (state, message) {
       var hideTimeout = null;
@@ -1082,112 +1025,35 @@ var MainView = /*#__PURE__*/function () {
 
       clearTimeout(hideTimeout);
       hideTimeout = setTimeout(function () {
-        (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_4__.$)(".toast--".concat(state)).classList.remove("toast--visible");
-        (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_4__.$)(".toast--".concat(state)).remove();
+        (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_3__.$)(".toast--".concat(state)).classList.remove("toast--visible");
+        (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_3__.$)(".toast--".concat(state)).remove();
       }, 3000);
     });
 
-    this.template = new _Template_js__WEBPACK_IMPORTED_MODULE_6__["default"]();
-    this.$searchModalButton = (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_4__.$)('.nav-right__button');
-    this.$modalContainer = (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_4__.$)('.modal-container');
-    this.$dimmer = (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_4__.$)('.dimmer');
-    this.$closeButton = (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_4__.$)('.x-shape');
-    this.$unwatchedButton = (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_4__.$)('.nav-left__button--unwatched');
-    this.$watchedButton = (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_4__.$)('.nav-left__button--watched');
-    this.$unwatchedTab = (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_4__.$)('.unwatched-tab');
-    this.$watchedTab = (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_4__.$)('.watched-tab');
-    this.$confirmModalContainer = (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_4__.$)('.confirm-modal-container');
-    this.$toastWrapper = (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_4__.$)('.toast-wrapper');
-    this.$darkToggle = (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_4__.$)('.classroom__toggle');
+    this.$searchModalButton = (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_3__.$)('.nav-right__button');
+    this.$modalContainer = (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_3__.$)('.modal-container');
+    this.$toastWrapper = (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_3__.$)('.toast-wrapper');
+    this.$toggleSwitch = (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_3__.$)('.classroom__toggle');
 
     _classPrivateMethodGet(this, _bindEvents, _bindEvents2).call(this);
+
+    _classPrivateMethodGet(this, _watchDarkMode, _watchDarkMode2).call(this);
   }
 
   (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(MainView, [{
-    key: "renderUnwatchedVideoItems",
-    value: function renderUnwatchedVideoItems(videoItems) {
-      var _this2 = this;
+    key: "switchTheme",
+    value: function switchTheme(event) {
+      // const toggleChecked = event.target.checked;
+      // console.log('dark', dark);
+      if (event.target.checked) {
+        document.documentElement.setAttribute('user-theme', 'dark');
+        this.$toggleSwitch.checked = true;
+      } else {
+        document.documentElement.setAttribute('user-theme', 'light');
+        this.$toggleSwitch.checked = false;
+      }
 
-      this.$unwatchedTab.replaceChildren();
-      videoItems.forEach(function (item) {
-        var $videoItem = _this2.template.getVideoItem(item);
-
-        _this2.$unwatchedTab.insertAdjacentHTML('beforeend', $videoItem);
-      });
-      this.$watchedTab.removeEventListener('click', (0,_babel_runtime_helpers_classPrivateFieldGet__WEBPACK_IMPORTED_MODULE_3__["default"])(this, _unwatchVideoButton));
-      this.$unwatchedTab.addEventListener('click', (0,_babel_runtime_helpers_classPrivateFieldGet__WEBPACK_IMPORTED_MODULE_3__["default"])(this, _watchVideoButton));
-      this.$watchedTab.removeEventListener('click', (0,_babel_runtime_helpers_classPrivateFieldGet__WEBPACK_IMPORTED_MODULE_3__["default"])(this, _deleteVideoButton));
-      this.$unwatchedTab.addEventListener('click', (0,_babel_runtime_helpers_classPrivateFieldGet__WEBPACK_IMPORTED_MODULE_3__["default"])(this, _deleteVideoButton));
-    }
-  }, {
-    key: "renderWatchedVideoItems",
-    value: function renderWatchedVideoItems(videoItems) {
-      var _this3 = this;
-
-      this.$watchedTab.replaceChildren();
-      videoItems.forEach(function (item) {
-        var $videoItem = _this3.template.getVideoItem(item);
-
-        _this3.$watchedTab.insertAdjacentHTML('beforeend', $videoItem);
-      });
-      (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_4__.$$)('.video-item__button--watched').forEach(function (button) {
-        return button.classList.add('active');
-      });
-      this.$unwatchedTab.removeEventListener('click', (0,_babel_runtime_helpers_classPrivateFieldGet__WEBPACK_IMPORTED_MODULE_3__["default"])(this, _watchVideoButton));
-      this.$watchedTab.addEventListener('click', (0,_babel_runtime_helpers_classPrivateFieldGet__WEBPACK_IMPORTED_MODULE_3__["default"])(this, _unwatchVideoButton));
-      this.$watchedTab.addEventListener('click', (0,_babel_runtime_helpers_classPrivateFieldGet__WEBPACK_IMPORTED_MODULE_3__["default"])(this, _deleteVideoButton));
-      this.$unwatchedTab.removeEventListener('click', (0,_babel_runtime_helpers_classPrivateFieldGet__WEBPACK_IMPORTED_MODULE_3__["default"])(this, _deleteVideoButton));
-    }
-  }, {
-    key: "showUnwatchedTab",
-    value: function showUnwatchedTab() {
-      this.$unwatchedButton.classList.add('active');
-      this.$watchedButton.classList.remove('active');
-      this.$unwatchedTab.classList.remove('hide');
-      this.$watchedTab.classList.add('hide');
-    }
-  }, {
-    key: "showWatchedTab",
-    value: function showWatchedTab() {
-      this.$unwatchedButton.classList.remove('active');
-      this.$watchedButton.classList.add('active');
-      this.$watchedTab.classList.remove('hide');
-      this.$unwatchedTab.classList.add('hide');
-    }
-  }, {
-    key: "removeVideo",
-    value: function removeVideo(videoId) {
-      document.getElementById(videoId).remove();
-    }
-  }, {
-    key: "confirmDelete",
-    value: function confirmDelete(videoId, title) {
-      var _this4 = this;
-
-      this.$confirmModalContainer.replaceChildren();
-      this.$confirmModalContainer.insertAdjacentHTML('beforeend', this.template.getConfirmModal(title));
-      (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_4__.$)('.confirm-modal__cancel-button').addEventListener('click', function () {
-        return _classPrivateMethodGet(_this4, _handleCancelButton, _handleCancelButton2).call(_this4);
-      }, {
-        once: true
-      });
-      (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_4__.$)('.confirm-modal__delete-button').addEventListener('click', function () {
-        return _classPrivateMethodGet(_this4, _handleDeleteButton, _handleDeleteButton2).call(_this4, videoId);
-      }, {
-        once: true
-      });
-
-      _classPrivateMethodGet(this, _showConfirmModal, _showConfirmModal2).call(this);
-    }
-  }, {
-    key: "hideConfirmModal",
-    value: function hideConfirmModal() {
-      this.$confirmModalContainer.classList.add('hide');
-    }
-  }, {
-    key: "toggleDarkMode",
-    value: function toggleDarkMode() {
-      document.body.classList.toggle('dark-mode');
+      console.log(event.target.checked); // document.body.classList.toggle('dark-mode');
     }
   }]);
 
@@ -1195,48 +1061,28 @@ var MainView = /*#__PURE__*/function () {
 }();
 
 function _bindEvents2() {
-  var _this5 = this;
+  var _this2 = this;
 
-  (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_5__.on)(this.$searchModalButton, 'click', _classPrivateMethodGet(this, _openSearchModal, _openSearchModal2).bind(this));
-  (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_5__.on)(this.$closeButton, 'click', _classPrivateMethodGet(this, _closeModal, _closeModal2).bind(this));
-  window.addEventListener('click', function (event) {
-    return event.target === _this5.$dimmer ? _classPrivateMethodGet(_this5, _closeModal, _closeModal2).call(_this5) : false;
+  (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_4__.on)(this.$searchModalButton, 'click', _classPrivateMethodGet(this, _openSearchModal, _openSearchModal2).bind(this));
+  (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_4__.on)(this.$toggleSwitch, 'change', function (event) {
+    return _this2.switchTheme(event);
   });
-  (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_5__.on)(this.$unwatchedButton, 'click', _classPrivateMethodGet(this, _handleUnwatchedButton, _handleUnwatchedButton2).bind(this));
-  (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_5__.on)(this.$watchedButton, 'click', _classPrivateMethodGet(this, _handleWatchedButton, _handleWatchedButton2).bind(this));
-  (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_5__.on)(this.$darkToggle, 'click', this.toggleDarkMode);
 }
 
 function _openSearchModal2() {
   this.$modalContainer.classList.remove('hide');
 }
 
-function _closeModal2() {
-  _classPrivateMethodGet(this, _handleUnwatchedButton, _handleUnwatchedButton2).call(this);
-
-  this.$modalContainer.classList.add('hide');
-}
-
-function _handleUnwatchedButton2() {
-  (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_5__.emit)(this.$unwatchedButton, '@show-unwatched-tab');
-}
-
-function _handleWatchedButton2() {
-  (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_5__.emit)(this.$watchedButton, '@show-watched-tab');
-}
-
-function _handleCancelButton2() {
-  this.hideConfirmModal();
-}
-
-function _handleDeleteButton2(videoId) {
-  (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_5__.emit)(this.$modalContainer, '@delete-video', {
-    videoId: videoId
-  });
-}
-
-function _showConfirmModal2() {
-  this.$confirmModalContainer.classList.remove('hide');
+function _watchDarkMode2() {
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    console.log('dark');
+    document.documentElement.setAttribute('user-theme', 'dark');
+    this.$toggleSwitch.checked = true;
+  } else {
+    console.log('else');
+    document.documentElement.setAttribute('user-theme', 'light');
+    this.$toggleSwitch.checked = false;
+  }
 }
 
 
@@ -1309,6 +1155,70 @@ function _handleClick2() {
   (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_4__.emit)(this.$searchButton, '@search', {
     keyword: keyword
   });
+}
+
+
+
+/***/ }),
+
+/***/ "./src/js/views/SearchModalView.js":
+/*!*****************************************!*\
+  !*** ./src/js/views/SearchModalView.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ SearchModalView)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ "./node_modules/@babel/runtime/helpers/esm/createClass.js");
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "./node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
+/* harmony import */ var _utils_dom_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/dom.js */ "./src/js/utils/dom.js");
+/* harmony import */ var _utils_event_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/event.js */ "./src/js/utils/event.js");
+
+
+
+function _classPrivateMethodInitSpec(obj, privateSet) { _checkPrivateRedeclaration(obj, privateSet); privateSet.add(obj); }
+
+function _checkPrivateRedeclaration(obj, privateCollection) { if (privateCollection.has(obj)) { throw new TypeError("Cannot initialize the same private elements twice on an object"); } }
+
+function _classPrivateMethodGet(receiver, privateSet, fn) { if (!privateSet.has(receiver)) { throw new TypeError("attempted to get private field on non-instance"); } return fn; }
+
+
+
+
+var _bindEvents = /*#__PURE__*/new WeakSet();
+
+var _closeSearchModal = /*#__PURE__*/new WeakSet();
+
+var SearchModalView = /*#__PURE__*/(0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_0__["default"])(function SearchModalView() {
+  (0,_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__["default"])(this, SearchModalView);
+
+  _classPrivateMethodInitSpec(this, _closeSearchModal);
+
+  _classPrivateMethodInitSpec(this, _bindEvents);
+
+  this.$modalContainer = (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_2__.$)('.modal-container');
+  this.$dimmer = (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_2__.$)('.dimmer');
+  this.$closeButton = (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_2__.$)('.x-shape');
+  this.$unwatchedButton = (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_2__.$)('.nav-left__button--unwatched');
+
+  _classPrivateMethodGet(this, _bindEvents, _bindEvents2).call(this);
+});
+
+function _bindEvents2() {
+  var _this = this;
+
+  (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_3__.on)(this.$closeButton, 'click', _classPrivateMethodGet(this, _closeSearchModal, _closeSearchModal2).bind(this));
+  window.addEventListener('click', function (event) {
+    return event.target === _this.$dimmer ? _classPrivateMethodGet(_this, _closeSearchModal, _closeSearchModal2).call(_this) : false;
+  });
+}
+
+function _closeSearchModal2() {
+  (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_3__.emit)(this.$unwatchedButton, '@show-unwatched-tab');
+  this.$modalContainer.classList.add('hide');
 }
 
 
@@ -1449,6 +1359,237 @@ var SearchResultView = /*#__PURE__*/function () {
 
 /***/ }),
 
+/***/ "./src/js/views/TabView.js":
+/*!*********************************!*\
+  !*** ./src/js/views/TabView.js ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ TabView)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "./node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ "./node_modules/@babel/runtime/helpers/esm/createClass.js");
+/* harmony import */ var _babel_runtime_helpers_classPrivateFieldGet__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/classPrivateFieldGet */ "./node_modules/@babel/runtime/helpers/esm/classPrivateFieldGet.js");
+/* harmony import */ var _utils_dom_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/dom.js */ "./src/js/utils/dom.js");
+/* harmony import */ var _utils_event_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils/event.js */ "./src/js/utils/event.js");
+/* harmony import */ var _Template_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Template.js */ "./src/js/views/Template.js");
+
+
+
+
+function _classPrivateFieldInitSpec(obj, privateMap, value) { _checkPrivateRedeclaration(obj, privateMap); privateMap.set(obj, value); }
+
+function _classPrivateMethodInitSpec(obj, privateSet) { _checkPrivateRedeclaration(obj, privateSet); privateSet.add(obj); }
+
+function _checkPrivateRedeclaration(obj, privateCollection) { if (privateCollection.has(obj)) { throw new TypeError("Cannot initialize the same private elements twice on an object"); } }
+
+function _classPrivateMethodGet(receiver, privateSet, fn) { if (!privateSet.has(receiver)) { throw new TypeError("attempted to get private field on non-instance"); } return fn; }
+
+
+
+
+
+var _bindEvents = /*#__PURE__*/new WeakSet();
+
+var _handleUnwatchedButton = /*#__PURE__*/new WeakSet();
+
+var _handleWatchedButton = /*#__PURE__*/new WeakSet();
+
+var _watchVideoButton = /*#__PURE__*/new WeakMap();
+
+var _unwatchVideoButton = /*#__PURE__*/new WeakMap();
+
+var _deleteVideoButton = /*#__PURE__*/new WeakMap();
+
+var _handleCancelButton = /*#__PURE__*/new WeakSet();
+
+var _handleDeleteButton = /*#__PURE__*/new WeakSet();
+
+var _showConfirmModal = /*#__PURE__*/new WeakSet();
+
+var TabView = /*#__PURE__*/function () {
+  function TabView() {
+    (0,_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__["default"])(this, TabView);
+
+    _classPrivateMethodInitSpec(this, _showConfirmModal);
+
+    _classPrivateMethodInitSpec(this, _handleDeleteButton);
+
+    _classPrivateMethodInitSpec(this, _handleCancelButton);
+
+    _classPrivateMethodInitSpec(this, _handleWatchedButton);
+
+    _classPrivateMethodInitSpec(this, _handleUnwatchedButton);
+
+    _classPrivateMethodInitSpec(this, _bindEvents);
+
+    _classPrivateFieldInitSpec(this, _watchVideoButton, {
+      writable: true,
+      value: function value(event) {
+        if (event.target.classList.contains('video-item__button--watched')) {
+          var videoId = event.target.id;
+          (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_4__.emit)(event.currentTarget, '@check-watched', {
+            videoId: videoId
+          });
+        }
+      }
+    });
+
+    _classPrivateFieldInitSpec(this, _unwatchVideoButton, {
+      writable: true,
+      value: function value(event) {
+        if (event.target.classList.contains('video-item__button--watched')) {
+          var videoId = event.target.id;
+          (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_4__.emit)(event.currentTarget, '@check-unwatched', {
+            videoId: videoId
+          });
+        }
+      }
+    });
+
+    _classPrivateFieldInitSpec(this, _deleteVideoButton, {
+      writable: true,
+      value: function value(event) {
+        if (event.target.classList.contains('video-item__button--delete')) {
+          var videoId = event.target.id;
+          (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_4__.emit)(event.currentTarget, '@check-delete', {
+            videoId: videoId
+          });
+        }
+      }
+    });
+
+    this.template = new _Template_js__WEBPACK_IMPORTED_MODULE_5__["default"]();
+    this.$savedListContainer = (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_3__.$)('.saved-list-container');
+    this.$unwatchedButton = (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_3__.$)('.nav-left__button--unwatched');
+    this.$watchedButton = (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_3__.$)('.nav-left__button--watched');
+    this.$unwatchedTab = (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_3__.$)('.unwatched-tab');
+    this.$watchedTab = (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_3__.$)('.watched-tab');
+    this.$confirmModalContainer = (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_3__.$)('.confirm-modal-container');
+
+    _classPrivateMethodGet(this, _bindEvents, _bindEvents2).call(this);
+  }
+
+  (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(TabView, [{
+    key: "renderUnwatchedVideoItems",
+    value: function renderUnwatchedVideoItems(videoItems) {
+      var _this = this;
+
+      this.$unwatchedTab.replaceChildren();
+      videoItems.forEach(function (item) {
+        var $videoItem = _this.template.getVideoItem(item);
+
+        _this.$unwatchedTab.insertAdjacentHTML('beforeend', $videoItem);
+      });
+      this.$watchedTab.removeEventListener('click', (0,_babel_runtime_helpers_classPrivateFieldGet__WEBPACK_IMPORTED_MODULE_2__["default"])(this, _unwatchVideoButton));
+      this.$unwatchedTab.addEventListener('click', (0,_babel_runtime_helpers_classPrivateFieldGet__WEBPACK_IMPORTED_MODULE_2__["default"])(this, _watchVideoButton));
+      this.$watchedTab.removeEventListener('click', (0,_babel_runtime_helpers_classPrivateFieldGet__WEBPACK_IMPORTED_MODULE_2__["default"])(this, _deleteVideoButton));
+      this.$unwatchedTab.addEventListener('click', (0,_babel_runtime_helpers_classPrivateFieldGet__WEBPACK_IMPORTED_MODULE_2__["default"])(this, _deleteVideoButton));
+    }
+  }, {
+    key: "renderWatchedVideoItems",
+    value: function renderWatchedVideoItems(videoItems) {
+      var _this2 = this;
+
+      this.$watchedTab.replaceChildren();
+      videoItems.forEach(function (item) {
+        var $videoItem = _this2.template.getVideoItem(item);
+
+        _this2.$watchedTab.insertAdjacentHTML('beforeend', $videoItem);
+      });
+      (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_3__.$$)('.video-item__button--watched').forEach(function (button) {
+        return button.classList.add('active');
+      });
+      this.$unwatchedTab.removeEventListener('click', (0,_babel_runtime_helpers_classPrivateFieldGet__WEBPACK_IMPORTED_MODULE_2__["default"])(this, _watchVideoButton));
+      this.$watchedTab.addEventListener('click', (0,_babel_runtime_helpers_classPrivateFieldGet__WEBPACK_IMPORTED_MODULE_2__["default"])(this, _unwatchVideoButton));
+      this.$watchedTab.addEventListener('click', (0,_babel_runtime_helpers_classPrivateFieldGet__WEBPACK_IMPORTED_MODULE_2__["default"])(this, _deleteVideoButton));
+      this.$unwatchedTab.removeEventListener('click', (0,_babel_runtime_helpers_classPrivateFieldGet__WEBPACK_IMPORTED_MODULE_2__["default"])(this, _deleteVideoButton));
+    }
+  }, {
+    key: "showUnwatchedTab",
+    value: function showUnwatchedTab() {
+      this.$unwatchedButton.classList.add('active');
+      this.$watchedButton.classList.remove('active');
+      this.$unwatchedTab.classList.remove('hide');
+      this.$watchedTab.classList.add('hide');
+    }
+  }, {
+    key: "showWatchedTab",
+    value: function showWatchedTab() {
+      this.$unwatchedButton.classList.remove('active');
+      this.$watchedButton.classList.add('active');
+      this.$watchedTab.classList.remove('hide');
+      this.$unwatchedTab.classList.add('hide');
+    }
+  }, {
+    key: "removeVideo",
+    value: function removeVideo(videoId) {
+      document.getElementById(videoId).remove();
+    }
+  }, {
+    key: "confirmDelete",
+    value: function confirmDelete(videoId, title) {
+      var _this3 = this;
+
+      this.$confirmModalContainer.replaceChildren();
+      this.$confirmModalContainer.insertAdjacentHTML('beforeend', this.template.getConfirmModal(title));
+      (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_3__.$)('.confirm-modal__cancel-button').addEventListener('click', function () {
+        return _classPrivateMethodGet(_this3, _handleCancelButton, _handleCancelButton2).call(_this3);
+      }, {
+        once: true
+      });
+      (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_3__.$)('.confirm-modal__delete-button').addEventListener('click', function () {
+        return _classPrivateMethodGet(_this3, _handleDeleteButton, _handleDeleteButton2).call(_this3, videoId);
+      }, {
+        once: true
+      });
+
+      _classPrivateMethodGet(this, _showConfirmModal, _showConfirmModal2).call(this);
+    }
+  }, {
+    key: "hideConfirmModal",
+    value: function hideConfirmModal() {
+      this.$confirmModalContainer.classList.add('hide');
+    }
+  }]);
+
+  return TabView;
+}();
+
+function _bindEvents2() {
+  (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_4__.on)(this.$unwatchedButton, 'click', _classPrivateMethodGet(this, _handleUnwatchedButton, _handleUnwatchedButton2).bind(this));
+  (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_4__.on)(this.$watchedButton, 'click', _classPrivateMethodGet(this, _handleWatchedButton, _handleWatchedButton2).bind(this));
+}
+
+function _handleUnwatchedButton2() {
+  (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_4__.emit)(this.$unwatchedButton, '@show-unwatched-tab');
+}
+
+function _handleWatchedButton2() {
+  (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_4__.emit)(this.$watchedButton, '@show-watched-tab');
+}
+
+function _handleCancelButton2() {
+  this.hideConfirmModal();
+}
+
+function _handleDeleteButton2(videoId) {
+  (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_4__.emit)(this.$savedListContainer, '@delete-video', {
+    videoId: videoId
+  });
+}
+
+function _showConfirmModal2() {
+  this.$confirmModalContainer.classList.remove('hide');
+}
+
+
+
+/***/ }),
+
 /***/ "./src/js/views/Template.js":
 /*!**********************************!*\
   !*** ./src/js/views/Template.js ***!
@@ -1526,7 +1667,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "body {\r\n  padding: 64px 0;\r\n  font-size: 16px;\r\n}\r\n\r\n.classroom-container {\r\n  max-width: 1020px;\r\n  margin: 0 auto;\r\n}\r\n\r\n.classroom-container__title {\r\n  text-align: center;\r\n  font-weight: bold;\r\n  font-size: 34px;\r\n  line-height: 36px;\r\n  margin-bottom: 64px;\r\n}\r\n\r\n.nav {\r\n  display: flex;\r\n  justify-content: space-between;\r\n}\r\n\r\n.button {\r\n  cursor: pointer;\r\n  border-radius: 4px;\r\n  border: none;\r\n  font-style: normal;\r\n  font-weight: bold;\r\n  font-size: 14px;\r\n}\r\n\r\n.bottom-target {\r\n  margin-top: 100px;\r\n  height: 100px;\r\n}\r\n\r\n.nav-left {\r\n  float: left;\r\n}\r\n\r\n.nav-right {\r\n  float: right;\r\n}\r\n\r\n.nav-left__button {\r\n  height: 36px;\r\n  padding: 10px;\r\n  background: var(--secondary-lighten);\r\n  border: 1px solid var(--secondary);\r\n}\r\n\r\n.nav-left__button--unwatched {\r\n  margin-right: -3px;\r\n  border-radius: 5px 0 0 5px;\r\n}\r\n\r\n.nav-left__button--watched {\r\n  margin-left: -3px;\r\n  border-radius: 0 5px 5px 0;\r\n}\r\n\r\n.nav-left__button:hover {\r\n  background: var(--active);\r\n}\r\n\r\n.nav-right__button {\r\n  height: 36px;\r\n  padding: 10px;\r\n  background: var(--secondary-lighten);\r\n}\r\n\r\n.nav-right__button:hover {\r\n  background: var(--secondary);\r\n}\r\n\r\n.video-item__button {\r\n  width: 36px;\r\n  height: 36px;\r\n  position: absolute;\r\n  right: 40px;\r\n}\r\n\r\n.video-item__button:hover {\r\n  background: var(--active);\r\n}\r\n\r\n.video-item__button--delete {\r\n  right: 0;\r\n}\r\n\r\n.video-grid {\r\n  max-width: 1020px;\r\n  padding: 0;\r\n  margin: 39px 0;\r\n  display: grid;\r\n  grid-template-columns: repeat(4, 1fr);\r\n  gap: 30px 36px;\r\n}\r\n\r\n.active {\r\n  background: var(--active);\r\n}\r\n\r\n@media screen and (max-width: 1280px) {\r\n  .classroom-container {\r\n    width: 720px;\r\n  }\r\n  .saved-list-container {\r\n    width: 720px;\r\n  }\r\n  .video-grid {\r\n    grid-template-columns: repeat(3, 1fr);\r\n    gap: 30px 20px;\r\n  }\r\n\r\n  .video-item {\r\n    width: 100%;\r\n  }\r\n  .classroom-container__title {\r\n    font-size: 32px;\r\n  }\r\n}\r\n\r\n@media screen and (max-width: 960px) {\r\n  .classroom-container {\r\n    width: 480px;\r\n  }\r\n  .saved-list-container {\r\n    width: 480px;\r\n  }\r\n  .video-grid {\r\n    grid-template-columns: repeat(2, 1fr);\r\n  }\r\n  .classroom-container__title {\r\n    font-size: 30px;\r\n  }\r\n}\r\n\r\n@media screen and (max-width: 600px) {\r\n  .classroom-container {\r\n    width: 340px;\r\n  }\r\n  .saved-list-container {\r\n    width: 340px;\r\n  }\r\n  .video-item {\r\n    width: 340px !important;\r\n    margin: 0 0 30px 0;\r\n  }\r\n  .video-grid {\r\n    grid-template-columns: 1fr;\r\n    gap: 0;\r\n  }\r\n  .nav {\r\n    flex-direction: column;\r\n  }\r\n  .nav-left__button {\r\n    width: 50%;\r\n  }\r\n  .nav-right__button {\r\n    margin: 7px 0 0 0;\r\n    width: 100%;\r\n  }\r\n  .classroom-container__title {\r\n    font-size: 22px;\r\n  }\r\n}\r\n", "",{"version":3,"sources":["webpack://./src/css/app.css"],"names":[],"mappings":"AAAA;EACE,eAAe;EACf,eAAe;AACjB;;AAEA;EACE,iBAAiB;EACjB,cAAc;AAChB;;AAEA;EACE,kBAAkB;EAClB,iBAAiB;EACjB,eAAe;EACf,iBAAiB;EACjB,mBAAmB;AACrB;;AAEA;EACE,aAAa;EACb,8BAA8B;AAChC;;AAEA;EACE,eAAe;EACf,kBAAkB;EAClB,YAAY;EACZ,kBAAkB;EAClB,iBAAiB;EACjB,eAAe;AACjB;;AAEA;EACE,iBAAiB;EACjB,aAAa;AACf;;AAEA;EACE,WAAW;AACb;;AAEA;EACE,YAAY;AACd;;AAEA;EACE,YAAY;EACZ,aAAa;EACb,oCAAoC;EACpC,kCAAkC;AACpC;;AAEA;EACE,kBAAkB;EAClB,0BAA0B;AAC5B;;AAEA;EACE,iBAAiB;EACjB,0BAA0B;AAC5B;;AAEA;EACE,yBAAyB;AAC3B;;AAEA;EACE,YAAY;EACZ,aAAa;EACb,oCAAoC;AACtC;;AAEA;EACE,4BAA4B;AAC9B;;AAEA;EACE,WAAW;EACX,YAAY;EACZ,kBAAkB;EAClB,WAAW;AACb;;AAEA;EACE,yBAAyB;AAC3B;;AAEA;EACE,QAAQ;AACV;;AAEA;EACE,iBAAiB;EACjB,UAAU;EACV,cAAc;EACd,aAAa;EACb,qCAAqC;EACrC,cAAc;AAChB;;AAEA;EACE,yBAAyB;AAC3B;;AAEA;EACE;IACE,YAAY;EACd;EACA;IACE,YAAY;EACd;EACA;IACE,qCAAqC;IACrC,cAAc;EAChB;;EAEA;IACE,WAAW;EACb;EACA;IACE,eAAe;EACjB;AACF;;AAEA;EACE;IACE,YAAY;EACd;EACA;IACE,YAAY;EACd;EACA;IACE,qCAAqC;EACvC;EACA;IACE,eAAe;EACjB;AACF;;AAEA;EACE;IACE,YAAY;EACd;EACA;IACE,YAAY;EACd;EACA;IACE,uBAAuB;IACvB,kBAAkB;EACpB;EACA;IACE,0BAA0B;IAC1B,MAAM;EACR;EACA;IACE,sBAAsB;EACxB;EACA;IACE,UAAU;EACZ;EACA;IACE,iBAAiB;IACjB,WAAW;EACb;EACA;IACE,eAAe;EACjB;AACF","sourcesContent":["body {\r\n  padding: 64px 0;\r\n  font-size: 16px;\r\n}\r\n\r\n.classroom-container {\r\n  max-width: 1020px;\r\n  margin: 0 auto;\r\n}\r\n\r\n.classroom-container__title {\r\n  text-align: center;\r\n  font-weight: bold;\r\n  font-size: 34px;\r\n  line-height: 36px;\r\n  margin-bottom: 64px;\r\n}\r\n\r\n.nav {\r\n  display: flex;\r\n  justify-content: space-between;\r\n}\r\n\r\n.button {\r\n  cursor: pointer;\r\n  border-radius: 4px;\r\n  border: none;\r\n  font-style: normal;\r\n  font-weight: bold;\r\n  font-size: 14px;\r\n}\r\n\r\n.bottom-target {\r\n  margin-top: 100px;\r\n  height: 100px;\r\n}\r\n\r\n.nav-left {\r\n  float: left;\r\n}\r\n\r\n.nav-right {\r\n  float: right;\r\n}\r\n\r\n.nav-left__button {\r\n  height: 36px;\r\n  padding: 10px;\r\n  background: var(--secondary-lighten);\r\n  border: 1px solid var(--secondary);\r\n}\r\n\r\n.nav-left__button--unwatched {\r\n  margin-right: -3px;\r\n  border-radius: 5px 0 0 5px;\r\n}\r\n\r\n.nav-left__button--watched {\r\n  margin-left: -3px;\r\n  border-radius: 0 5px 5px 0;\r\n}\r\n\r\n.nav-left__button:hover {\r\n  background: var(--active);\r\n}\r\n\r\n.nav-right__button {\r\n  height: 36px;\r\n  padding: 10px;\r\n  background: var(--secondary-lighten);\r\n}\r\n\r\n.nav-right__button:hover {\r\n  background: var(--secondary);\r\n}\r\n\r\n.video-item__button {\r\n  width: 36px;\r\n  height: 36px;\r\n  position: absolute;\r\n  right: 40px;\r\n}\r\n\r\n.video-item__button:hover {\r\n  background: var(--active);\r\n}\r\n\r\n.video-item__button--delete {\r\n  right: 0;\r\n}\r\n\r\n.video-grid {\r\n  max-width: 1020px;\r\n  padding: 0;\r\n  margin: 39px 0;\r\n  display: grid;\r\n  grid-template-columns: repeat(4, 1fr);\r\n  gap: 30px 36px;\r\n}\r\n\r\n.active {\r\n  background: var(--active);\r\n}\r\n\r\n@media screen and (max-width: 1280px) {\r\n  .classroom-container {\r\n    width: 720px;\r\n  }\r\n  .saved-list-container {\r\n    width: 720px;\r\n  }\r\n  .video-grid {\r\n    grid-template-columns: repeat(3, 1fr);\r\n    gap: 30px 20px;\r\n  }\r\n\r\n  .video-item {\r\n    width: 100%;\r\n  }\r\n  .classroom-container__title {\r\n    font-size: 32px;\r\n  }\r\n}\r\n\r\n@media screen and (max-width: 960px) {\r\n  .classroom-container {\r\n    width: 480px;\r\n  }\r\n  .saved-list-container {\r\n    width: 480px;\r\n  }\r\n  .video-grid {\r\n    grid-template-columns: repeat(2, 1fr);\r\n  }\r\n  .classroom-container__title {\r\n    font-size: 30px;\r\n  }\r\n}\r\n\r\n@media screen and (max-width: 600px) {\r\n  .classroom-container {\r\n    width: 340px;\r\n  }\r\n  .saved-list-container {\r\n    width: 340px;\r\n  }\r\n  .video-item {\r\n    width: 340px !important;\r\n    margin: 0 0 30px 0;\r\n  }\r\n  .video-grid {\r\n    grid-template-columns: 1fr;\r\n    gap: 0;\r\n  }\r\n  .nav {\r\n    flex-direction: column;\r\n  }\r\n  .nav-left__button {\r\n    width: 50%;\r\n  }\r\n  .nav-right__button {\r\n    margin: 7px 0 0 0;\r\n    width: 100%;\r\n  }\r\n  .classroom-container__title {\r\n    font-size: 22px;\r\n  }\r\n}\r\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "body {\r\n  padding: 64px 0;\r\n  font-size: 16px;\r\n  background-color: var(--background);\r\n}\r\n\r\n.classroom-container {\r\n  max-width: 1020px;\r\n  margin: 0 auto;\r\n}\r\n\r\n.classroom-container__title {\r\n  text-align: center;\r\n  font-weight: bold;\r\n  font-size: 34px;\r\n  line-height: 36px;\r\n  margin-bottom: 64px;\r\n}\r\n\r\n.nav {\r\n  display: flex;\r\n  justify-content: space-between;\r\n}\r\n\r\n.button {\r\n  cursor: pointer;\r\n  border-radius: 4px;\r\n  border: none;\r\n  font-style: normal;\r\n  font-weight: bold;\r\n  font-size: 14px;\r\n}\r\n\r\n.bottom-target {\r\n  margin-top: 100px;\r\n  height: 100px;\r\n}\r\n\r\n.nav-left {\r\n  float: left;\r\n}\r\n\r\n.nav-right {\r\n  float: right;\r\n}\r\n\r\n.nav-left__button {\r\n  height: 36px;\r\n  padding: 10px;\r\n  background: var(--secondary-lighten);\r\n  border: 1px solid var(--secondary);\r\n}\r\n\r\n.nav-left__button--unwatched {\r\n  margin-right: -3px;\r\n  border-radius: 5px 0 0 5px;\r\n}\r\n\r\n.nav-left__button--watched {\r\n  margin-left: -3px;\r\n  border-radius: 0 5px 5px 0;\r\n}\r\n\r\n.nav-left__button:hover {\r\n  background: var(--active);\r\n}\r\n\r\n.nav-right__button {\r\n  height: 36px;\r\n  padding: 10px;\r\n  background: var(--primary);\r\n  color: var(--white);\r\n}\r\n\r\n.nav-right__button:hover {\r\n  background: var(--primary-darken);\r\n}\r\n\r\n.video-item__button {\r\n  width: 36px;\r\n  height: 36px;\r\n  position: absolute;\r\n  right: 40px;\r\n}\r\n\r\n.video-item__button:hover {\r\n  background: var(--active);\r\n}\r\n\r\n.video-item__button--delete {\r\n  right: 0;\r\n}\r\n\r\n.video-grid {\r\n  max-width: 1020px;\r\n  padding: 0;\r\n  margin: 40px 0;\r\n  display: grid;\r\n  grid-template-columns: repeat(4, 1fr);\r\n  gap: 30px 36px;\r\n}\r\n\r\n.active {\r\n  background: var(--active);\r\n}\r\n\r\n@media screen and (max-width: 1280px) {\r\n  .classroom-container {\r\n    width: 720px;\r\n  }\r\n  .saved-list-container {\r\n    width: 720px;\r\n  }\r\n  .video-grid {\r\n    grid-template-columns: repeat(3, 1fr);\r\n    gap: 30px 20px;\r\n  }\r\n\r\n  .video-item {\r\n    width: 100%;\r\n  }\r\n  .classroom-container__title {\r\n    font-size: 32px;\r\n  }\r\n}\r\n\r\n@media screen and (max-width: 960px) {\r\n  .classroom-container {\r\n    width: 480px;\r\n  }\r\n  .saved-list-container {\r\n    width: 480px;\r\n  }\r\n  .video-grid {\r\n    grid-template-columns: repeat(2, 1fr);\r\n  }\r\n  .classroom-container__title {\r\n    font-size: 30px;\r\n  }\r\n}\r\n\r\n@media screen and (max-width: 600px) {\r\n  .classroom-container {\r\n    width: 340px;\r\n  }\r\n  .saved-list-container {\r\n    width: 340px;\r\n  }\r\n  .video-item {\r\n    width: 340px !important;\r\n    margin: 0 0 30px;\r\n  }\r\n  .video-grid {\r\n    grid-template-columns: 1fr;\r\n    gap: 0;\r\n  }\r\n  .nav {\r\n    flex-direction: column;\r\n  }\r\n  .nav-left__button {\r\n    width: 50%;\r\n  }\r\n  .nav-right__button {\r\n    margin: 7px 0 0;\r\n    width: 100%;\r\n  }\r\n  .classroom-container__title {\r\n    font-size: 22px;\r\n  }\r\n}\r\n", "",{"version":3,"sources":["webpack://./src/css/app.css"],"names":[],"mappings":"AAAA;EACE,eAAe;EACf,eAAe;EACf,mCAAmC;AACrC;;AAEA;EACE,iBAAiB;EACjB,cAAc;AAChB;;AAEA;EACE,kBAAkB;EAClB,iBAAiB;EACjB,eAAe;EACf,iBAAiB;EACjB,mBAAmB;AACrB;;AAEA;EACE,aAAa;EACb,8BAA8B;AAChC;;AAEA;EACE,eAAe;EACf,kBAAkB;EAClB,YAAY;EACZ,kBAAkB;EAClB,iBAAiB;EACjB,eAAe;AACjB;;AAEA;EACE,iBAAiB;EACjB,aAAa;AACf;;AAEA;EACE,WAAW;AACb;;AAEA;EACE,YAAY;AACd;;AAEA;EACE,YAAY;EACZ,aAAa;EACb,oCAAoC;EACpC,kCAAkC;AACpC;;AAEA;EACE,kBAAkB;EAClB,0BAA0B;AAC5B;;AAEA;EACE,iBAAiB;EACjB,0BAA0B;AAC5B;;AAEA;EACE,yBAAyB;AAC3B;;AAEA;EACE,YAAY;EACZ,aAAa;EACb,0BAA0B;EAC1B,mBAAmB;AACrB;;AAEA;EACE,iCAAiC;AACnC;;AAEA;EACE,WAAW;EACX,YAAY;EACZ,kBAAkB;EAClB,WAAW;AACb;;AAEA;EACE,yBAAyB;AAC3B;;AAEA;EACE,QAAQ;AACV;;AAEA;EACE,iBAAiB;EACjB,UAAU;EACV,cAAc;EACd,aAAa;EACb,qCAAqC;EACrC,cAAc;AAChB;;AAEA;EACE,yBAAyB;AAC3B;;AAEA;EACE;IACE,YAAY;EACd;EACA;IACE,YAAY;EACd;EACA;IACE,qCAAqC;IACrC,cAAc;EAChB;;EAEA;IACE,WAAW;EACb;EACA;IACE,eAAe;EACjB;AACF;;AAEA;EACE;IACE,YAAY;EACd;EACA;IACE,YAAY;EACd;EACA;IACE,qCAAqC;EACvC;EACA;IACE,eAAe;EACjB;AACF;;AAEA;EACE;IACE,YAAY;EACd;EACA;IACE,YAAY;EACd;EACA;IACE,uBAAuB;IACvB,gBAAgB;EAClB;EACA;IACE,0BAA0B;IAC1B,MAAM;EACR;EACA;IACE,sBAAsB;EACxB;EACA;IACE,UAAU;EACZ;EACA;IACE,eAAe;IACf,WAAW;EACb;EACA;IACE,eAAe;EACjB;AACF","sourcesContent":["body {\r\n  padding: 64px 0;\r\n  font-size: 16px;\r\n  background-color: var(--background);\r\n}\r\n\r\n.classroom-container {\r\n  max-width: 1020px;\r\n  margin: 0 auto;\r\n}\r\n\r\n.classroom-container__title {\r\n  text-align: center;\r\n  font-weight: bold;\r\n  font-size: 34px;\r\n  line-height: 36px;\r\n  margin-bottom: 64px;\r\n}\r\n\r\n.nav {\r\n  display: flex;\r\n  justify-content: space-between;\r\n}\r\n\r\n.button {\r\n  cursor: pointer;\r\n  border-radius: 4px;\r\n  border: none;\r\n  font-style: normal;\r\n  font-weight: bold;\r\n  font-size: 14px;\r\n}\r\n\r\n.bottom-target {\r\n  margin-top: 100px;\r\n  height: 100px;\r\n}\r\n\r\n.nav-left {\r\n  float: left;\r\n}\r\n\r\n.nav-right {\r\n  float: right;\r\n}\r\n\r\n.nav-left__button {\r\n  height: 36px;\r\n  padding: 10px;\r\n  background: var(--secondary-lighten);\r\n  border: 1px solid var(--secondary);\r\n}\r\n\r\n.nav-left__button--unwatched {\r\n  margin-right: -3px;\r\n  border-radius: 5px 0 0 5px;\r\n}\r\n\r\n.nav-left__button--watched {\r\n  margin-left: -3px;\r\n  border-radius: 0 5px 5px 0;\r\n}\r\n\r\n.nav-left__button:hover {\r\n  background: var(--active);\r\n}\r\n\r\n.nav-right__button {\r\n  height: 36px;\r\n  padding: 10px;\r\n  background: var(--primary);\r\n  color: var(--white);\r\n}\r\n\r\n.nav-right__button:hover {\r\n  background: var(--primary-darken);\r\n}\r\n\r\n.video-item__button {\r\n  width: 36px;\r\n  height: 36px;\r\n  position: absolute;\r\n  right: 40px;\r\n}\r\n\r\n.video-item__button:hover {\r\n  background: var(--active);\r\n}\r\n\r\n.video-item__button--delete {\r\n  right: 0;\r\n}\r\n\r\n.video-grid {\r\n  max-width: 1020px;\r\n  padding: 0;\r\n  margin: 40px 0;\r\n  display: grid;\r\n  grid-template-columns: repeat(4, 1fr);\r\n  gap: 30px 36px;\r\n}\r\n\r\n.active {\r\n  background: var(--active);\r\n}\r\n\r\n@media screen and (max-width: 1280px) {\r\n  .classroom-container {\r\n    width: 720px;\r\n  }\r\n  .saved-list-container {\r\n    width: 720px;\r\n  }\r\n  .video-grid {\r\n    grid-template-columns: repeat(3, 1fr);\r\n    gap: 30px 20px;\r\n  }\r\n\r\n  .video-item {\r\n    width: 100%;\r\n  }\r\n  .classroom-container__title {\r\n    font-size: 32px;\r\n  }\r\n}\r\n\r\n@media screen and (max-width: 960px) {\r\n  .classroom-container {\r\n    width: 480px;\r\n  }\r\n  .saved-list-container {\r\n    width: 480px;\r\n  }\r\n  .video-grid {\r\n    grid-template-columns: repeat(2, 1fr);\r\n  }\r\n  .classroom-container__title {\r\n    font-size: 30px;\r\n  }\r\n}\r\n\r\n@media screen and (max-width: 600px) {\r\n  .classroom-container {\r\n    width: 340px;\r\n  }\r\n  .saved-list-container {\r\n    width: 340px;\r\n  }\r\n  .video-item {\r\n    width: 340px !important;\r\n    margin: 0 0 30px;\r\n  }\r\n  .video-grid {\r\n    grid-template-columns: 1fr;\r\n    gap: 0;\r\n  }\r\n  .nav {\r\n    flex-direction: column;\r\n  }\r\n  .nav-left__button {\r\n    width: 50%;\r\n  }\r\n  .nav-right__button {\r\n    margin: 7px 0 0;\r\n    width: 100%;\r\n  }\r\n  .classroom-container__title {\r\n    font-size: 22px;\r\n  }\r\n}\r\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1553,7 +1694,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".confirm-modal {\r\n  position: fixed;\r\n  z-index: 1;\r\n  left: 0;\r\n  top: 0;\r\n  width: 100%;\r\n  height: 100%;\r\n  background-color: var(--dimmer);\r\n  padding-top: 50px;\r\n  text-align: center;\r\n}\r\n\r\n.confirm-modal__form {\r\n  margin-top: 150px;\r\n  display: inline-block;\r\n  background-color: #fefefe;\r\n  border: 1px solid #888;\r\n  border-radius: 10px;\r\n  width: 400px;\r\n}\r\n\r\n.confirm-modal__content {\r\n  padding: 16px;\r\n  text-align: center;\r\n}\r\n\r\n.confirm-modal__span {\r\n  font-size: 20px;\r\n  font-weight: bold;\r\n}\r\n\r\n.confirm-modal__clear-fix::after {\r\n  content: '';\r\n  clear: both;\r\n  display: table;\r\n}\r\n\r\n.confirm-modal__cancel-button,\r\n.confirm-modal__delete-button {\r\n  float: left;\r\n  width: 48%;\r\n  color: var(--white);\r\n  font-size: 16px;\r\n  height: 30px;\r\n  margin: 20px 3px 0 3px;\r\n}\r\n\r\n.confirm-modal__cancel-button {\r\n  background-color: var(--secondary);\r\n}\r\n\r\n.confirm-modal__cancel-button:hover {\r\n  background-color: var(--secondary-darken);\r\n}\r\n\r\n.confirm-modal__delete-button {\r\n  background-color: var(--primary);\r\n}\r\n\r\n.confirm-modal__delete-button:hover {\r\n  background-color: var(--primary-darken);\r\n}\r\n\r\n@media screen and (max-width: 1280px) {\r\n  .confirm-modal__form {\r\n    width: 350px;\r\n  }\r\n  .confirm-modal__cancel-button,\r\n  .confirm-modal__delete-button {\r\n    width: 100%;\r\n    margin: 3px 0;\r\n  }\r\n  .confirm-modal__span {\r\n    font-size: 19px;\r\n  }\r\n}\r\n\r\n@media screen and (max-width: 960px) {\r\n  .confirm-modal__form {\r\n    width: 300px;\r\n  }\r\n\r\n  .confirm-modal__span {\r\n    font-size: 17px;\r\n  }\r\n}\r\n\r\n@media screen and (max-width: 600px) {\r\n  .confirm-modal__form {\r\n    width: 250px;\r\n  }\r\n}\r\n", "",{"version":3,"sources":["webpack://./src/css/confirmModal.css"],"names":[],"mappings":"AAAA;EACE,eAAe;EACf,UAAU;EACV,OAAO;EACP,MAAM;EACN,WAAW;EACX,YAAY;EACZ,+BAA+B;EAC/B,iBAAiB;EACjB,kBAAkB;AACpB;;AAEA;EACE,iBAAiB;EACjB,qBAAqB;EACrB,yBAAyB;EACzB,sBAAsB;EACtB,mBAAmB;EACnB,YAAY;AACd;;AAEA;EACE,aAAa;EACb,kBAAkB;AACpB;;AAEA;EACE,eAAe;EACf,iBAAiB;AACnB;;AAEA;EACE,WAAW;EACX,WAAW;EACX,cAAc;AAChB;;AAEA;;EAEE,WAAW;EACX,UAAU;EACV,mBAAmB;EACnB,eAAe;EACf,YAAY;EACZ,sBAAsB;AACxB;;AAEA;EACE,kCAAkC;AACpC;;AAEA;EACE,yCAAyC;AAC3C;;AAEA;EACE,gCAAgC;AAClC;;AAEA;EACE,uCAAuC;AACzC;;AAEA;EACE;IACE,YAAY;EACd;EACA;;IAEE,WAAW;IACX,aAAa;EACf;EACA;IACE,eAAe;EACjB;AACF;;AAEA;EACE;IACE,YAAY;EACd;;EAEA;IACE,eAAe;EACjB;AACF;;AAEA;EACE;IACE,YAAY;EACd;AACF","sourcesContent":[".confirm-modal {\r\n  position: fixed;\r\n  z-index: 1;\r\n  left: 0;\r\n  top: 0;\r\n  width: 100%;\r\n  height: 100%;\r\n  background-color: var(--dimmer);\r\n  padding-top: 50px;\r\n  text-align: center;\r\n}\r\n\r\n.confirm-modal__form {\r\n  margin-top: 150px;\r\n  display: inline-block;\r\n  background-color: #fefefe;\r\n  border: 1px solid #888;\r\n  border-radius: 10px;\r\n  width: 400px;\r\n}\r\n\r\n.confirm-modal__content {\r\n  padding: 16px;\r\n  text-align: center;\r\n}\r\n\r\n.confirm-modal__span {\r\n  font-size: 20px;\r\n  font-weight: bold;\r\n}\r\n\r\n.confirm-modal__clear-fix::after {\r\n  content: '';\r\n  clear: both;\r\n  display: table;\r\n}\r\n\r\n.confirm-modal__cancel-button,\r\n.confirm-modal__delete-button {\r\n  float: left;\r\n  width: 48%;\r\n  color: var(--white);\r\n  font-size: 16px;\r\n  height: 30px;\r\n  margin: 20px 3px 0 3px;\r\n}\r\n\r\n.confirm-modal__cancel-button {\r\n  background-color: var(--secondary);\r\n}\r\n\r\n.confirm-modal__cancel-button:hover {\r\n  background-color: var(--secondary-darken);\r\n}\r\n\r\n.confirm-modal__delete-button {\r\n  background-color: var(--primary);\r\n}\r\n\r\n.confirm-modal__delete-button:hover {\r\n  background-color: var(--primary-darken);\r\n}\r\n\r\n@media screen and (max-width: 1280px) {\r\n  .confirm-modal__form {\r\n    width: 350px;\r\n  }\r\n  .confirm-modal__cancel-button,\r\n  .confirm-modal__delete-button {\r\n    width: 100%;\r\n    margin: 3px 0;\r\n  }\r\n  .confirm-modal__span {\r\n    font-size: 19px;\r\n  }\r\n}\r\n\r\n@media screen and (max-width: 960px) {\r\n  .confirm-modal__form {\r\n    width: 300px;\r\n  }\r\n\r\n  .confirm-modal__span {\r\n    font-size: 17px;\r\n  }\r\n}\r\n\r\n@media screen and (max-width: 600px) {\r\n  .confirm-modal__form {\r\n    width: 250px;\r\n  }\r\n}\r\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, ".confirm-modal {\r\n  position: fixed;\r\n  z-index: 1;\r\n  left: 0;\r\n  top: 0;\r\n  width: 100%;\r\n  height: 100%;\r\n  background-color: var(--dimmer);\r\n  padding-top: 50px;\r\n  text-align: center;\r\n}\r\n\r\n.confirm-modal__form {\r\n  margin-top: 150px;\r\n  display: inline-block;\r\n  background-color: var(--secondary-lighten);\r\n  border: 1px solid var(--secondary-darken);\r\n  border-radius: 10px;\r\n  width: 400px;\r\n}\r\n\r\n.confirm-modal__content {\r\n  padding: 16px;\r\n  text-align: center;\r\n}\r\n\r\n.confirm-modal__span {\r\n  font-size: 20px;\r\n  font-weight: bold;\r\n}\r\n\r\n.confirm-modal__clear-fix::after {\r\n  content: '';\r\n  clear: both;\r\n  display: table;\r\n}\r\n\r\n.confirm-modal__cancel-button,\r\n.confirm-modal__delete-button {\r\n  float: left;\r\n  width: 48%;\r\n  color: var(--white);\r\n  font-size: 16px;\r\n  height: 30px;\r\n  margin: 20px 3px 0;\r\n}\r\n\r\n.confirm-modal__cancel-button {\r\n  background-color: var(--secondary);\r\n}\r\n\r\n.confirm-modal__cancel-button:hover {\r\n  background-color: var(--secondary-darkest);\r\n}\r\n\r\n.confirm-modal__delete-button {\r\n  background-color: var(--primary);\r\n}\r\n\r\n.confirm-modal__delete-button:hover {\r\n  background-color: var(--primary-darken);\r\n}\r\n\r\n@media screen and (max-width: 1280px) {\r\n  .confirm-modal__form {\r\n    width: 350px;\r\n  }\r\n  .confirm-modal__cancel-button,\r\n  .confirm-modal__delete-button {\r\n    width: 100%;\r\n    margin: 3px 0;\r\n  }\r\n  .confirm-modal__span {\r\n    font-size: 19px;\r\n  }\r\n}\r\n\r\n@media screen and (max-width: 960px) {\r\n  .confirm-modal__form {\r\n    width: 300px;\r\n  }\r\n\r\n  .confirm-modal__span {\r\n    font-size: 17px;\r\n  }\r\n}\r\n\r\n@media screen and (max-width: 600px) {\r\n  .confirm-modal__form {\r\n    width: 250px;\r\n  }\r\n}\r\n", "",{"version":3,"sources":["webpack://./src/css/confirmModal.css"],"names":[],"mappings":"AAAA;EACE,eAAe;EACf,UAAU;EACV,OAAO;EACP,MAAM;EACN,WAAW;EACX,YAAY;EACZ,+BAA+B;EAC/B,iBAAiB;EACjB,kBAAkB;AACpB;;AAEA;EACE,iBAAiB;EACjB,qBAAqB;EACrB,0CAA0C;EAC1C,yCAAyC;EACzC,mBAAmB;EACnB,YAAY;AACd;;AAEA;EACE,aAAa;EACb,kBAAkB;AACpB;;AAEA;EACE,eAAe;EACf,iBAAiB;AACnB;;AAEA;EACE,WAAW;EACX,WAAW;EACX,cAAc;AAChB;;AAEA;;EAEE,WAAW;EACX,UAAU;EACV,mBAAmB;EACnB,eAAe;EACf,YAAY;EACZ,kBAAkB;AACpB;;AAEA;EACE,kCAAkC;AACpC;;AAEA;EACE,0CAA0C;AAC5C;;AAEA;EACE,gCAAgC;AAClC;;AAEA;EACE,uCAAuC;AACzC;;AAEA;EACE;IACE,YAAY;EACd;EACA;;IAEE,WAAW;IACX,aAAa;EACf;EACA;IACE,eAAe;EACjB;AACF;;AAEA;EACE;IACE,YAAY;EACd;;EAEA;IACE,eAAe;EACjB;AACF;;AAEA;EACE;IACE,YAAY;EACd;AACF","sourcesContent":[".confirm-modal {\r\n  position: fixed;\r\n  z-index: 1;\r\n  left: 0;\r\n  top: 0;\r\n  width: 100%;\r\n  height: 100%;\r\n  background-color: var(--dimmer);\r\n  padding-top: 50px;\r\n  text-align: center;\r\n}\r\n\r\n.confirm-modal__form {\r\n  margin-top: 150px;\r\n  display: inline-block;\r\n  background-color: var(--secondary-lighten);\r\n  border: 1px solid var(--secondary-darken);\r\n  border-radius: 10px;\r\n  width: 400px;\r\n}\r\n\r\n.confirm-modal__content {\r\n  padding: 16px;\r\n  text-align: center;\r\n}\r\n\r\n.confirm-modal__span {\r\n  font-size: 20px;\r\n  font-weight: bold;\r\n}\r\n\r\n.confirm-modal__clear-fix::after {\r\n  content: '';\r\n  clear: both;\r\n  display: table;\r\n}\r\n\r\n.confirm-modal__cancel-button,\r\n.confirm-modal__delete-button {\r\n  float: left;\r\n  width: 48%;\r\n  color: var(--white);\r\n  font-size: 16px;\r\n  height: 30px;\r\n  margin: 20px 3px 0;\r\n}\r\n\r\n.confirm-modal__cancel-button {\r\n  background-color: var(--secondary);\r\n}\r\n\r\n.confirm-modal__cancel-button:hover {\r\n  background-color: var(--secondary-darkest);\r\n}\r\n\r\n.confirm-modal__delete-button {\r\n  background-color: var(--primary);\r\n}\r\n\r\n.confirm-modal__delete-button:hover {\r\n  background-color: var(--primary-darken);\r\n}\r\n\r\n@media screen and (max-width: 1280px) {\r\n  .confirm-modal__form {\r\n    width: 350px;\r\n  }\r\n  .confirm-modal__cancel-button,\r\n  .confirm-modal__delete-button {\r\n    width: 100%;\r\n    margin: 3px 0;\r\n  }\r\n  .confirm-modal__span {\r\n    font-size: 19px;\r\n  }\r\n}\r\n\r\n@media screen and (max-width: 960px) {\r\n  .confirm-modal__form {\r\n    width: 300px;\r\n  }\r\n\r\n  .confirm-modal__span {\r\n    font-size: 17px;\r\n  }\r\n}\r\n\r\n@media screen and (max-width: 600px) {\r\n  .confirm-modal__form {\r\n    width: 250px;\r\n  }\r\n}\r\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1580,7 +1721,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "body.dark-mode {\r\n  background-color: var(--surface);\r\n  color: var(--white);\r\n}\r\n\r\nbody.dark-mode .button {\r\n  background-color: var(--dimmer);\r\n  color: var(--white);\r\n  border: 0;\r\n}\r\nbody.dark-mode .button:hover {\r\n  background-color: var(--active);\r\n}\r\nbody.dark-mode .button:focus {\r\n  background-color: var(--active);\r\n}\r\n\r\nbody.dark-mode::-webkit-scrollbar {\r\n  background-color: var(--dimmer);\r\n}\r\nbody.dark-mode::-webkit-scrollbar-button {\r\n  display: none;\r\n}\r\nbody.dark-mode::-webkit-scrollbar-track {\r\n  background-color: var(--surface);\r\n}\r\nbody.dark-mode::-webkit-scrollbar-thumb {\r\n  background-color: var(--dimmer);\r\n  border-radius: 5px;\r\n}\r\nbody.dark-mode::-webkit-scrollbar-button:start:decrement,\r\nbody.dark-mode::-webkit-scrollbar-button:end:increment {\r\n  width: 16px;\r\n  height: 16px;\r\n  background: var(--surface);\r\n}\r\nbody.dark-mode .search-modal {\r\n  background-color: var(--surface);\r\n}\r\n\r\nbody.dark-mode .search-modal ::-webkit-scrollbar {\r\n  width: 16px;\r\n}\r\nbody.dark-mode .search-modal ::-webkit-scrollbar-button {\r\n  display: none;\r\n}\r\nbody.dark-mode .search-modal ::-webkit-scrollbar-track {\r\n  background-color: var(--surface);\r\n}\r\nbody.dark-mode .search-modal ::-webkit-scrollbar-thumb {\r\n  background-color: var(--dimmer);\r\n  border-radius: 5px;\r\n}\r\n\r\nbody.dark-mode .search-modal ::-webkit-scrollbar-button:start:decrement,\r\nbody.dark-mode .search-modal ::-webkit-scrollbar-button:end:increment {\r\n  width: 16px;\r\n  height: 16px;\r\n  background: var(--surface);\r\n}\r\nbody.dark-mode .confirm-modal__form {\r\n  background-color: var(--surface);\r\n  border-radius: 5px;\r\n  border: 1px solid var(--secondary-darken);\r\n}\r\nbody.dark-mode .confirm-modal__content {\r\n  background-color: var(--surface);\r\n  border-radius: 5px;\r\n}\r\nbody.dark-mode .confirm-modal__delete-button {\r\n  background-color: var(--primary-darken);\r\n}\r\nbody.dark-mode .confirm-modal__delete-button:hover {\r\n  background-color: var(--primary);\r\n}\r\nbody.dark-mode .confirm-modal__cancel-button {\r\n  background-color: var(--secondary-darken);\r\n}\r\nbody.dark-mode .confirm-modal__cancel-button:hover {\r\n  background-color: var(--secondary);\r\n}\r\nbody.dark-mode .search-input__keyword {\r\n  background-color: var(--dimmer);\r\n  border: 0;\r\n  color: var(--white);\r\n}\r\n\r\nbody.dark-mode .search-input__search-button {\r\n  background-color: var(--primary-darkest);\r\n}\r\n\r\nbody.dark-mode .search-input__search-button:hover {\r\n  background-color: var(--primary-darken);\r\n}\r\nbody.dark-mode .saved-button {\r\n  background-color: var(--primary-darkest);\r\n}\r\nbody.dark-mode .video-item__save-button:hover {\r\n  background-color: var(--primary-darkest);\r\n}\r\n\r\nbody.dark-mode .skeleton .video-item__thumbnail,\r\nbody.dark-mode .skeleton .video-item__title,\r\nbody.dark-mode .skeleton .video-item__channel-name,\r\nbody.dark-mode .skeleton .video-item__published-date,\r\nbody.dark-mode .skeleton .video-item__save-button {\r\n  background-image: var(--skeleton-dark);\r\n}\r\n", "",{"version":3,"sources":["webpack://./src/css/darkMode.css"],"names":[],"mappings":"AAAA;EACE,gCAAgC;EAChC,mBAAmB;AACrB;;AAEA;EACE,+BAA+B;EAC/B,mBAAmB;EACnB,SAAS;AACX;AACA;EACE,+BAA+B;AACjC;AACA;EACE,+BAA+B;AACjC;;AAEA;EACE,+BAA+B;AACjC;AACA;EACE,aAAa;AACf;AACA;EACE,gCAAgC;AAClC;AACA;EACE,+BAA+B;EAC/B,kBAAkB;AACpB;AACA;;EAEE,WAAW;EACX,YAAY;EACZ,0BAA0B;AAC5B;AACA;EACE,gCAAgC;AAClC;;AAEA;EACE,WAAW;AACb;AACA;EACE,aAAa;AACf;AACA;EACE,gCAAgC;AAClC;AACA;EACE,+BAA+B;EAC/B,kBAAkB;AACpB;;AAEA;;EAEE,WAAW;EACX,YAAY;EACZ,0BAA0B;AAC5B;AACA;EACE,gCAAgC;EAChC,kBAAkB;EAClB,yCAAyC;AAC3C;AACA;EACE,gCAAgC;EAChC,kBAAkB;AACpB;AACA;EACE,uCAAuC;AACzC;AACA;EACE,gCAAgC;AAClC;AACA;EACE,yCAAyC;AAC3C;AACA;EACE,kCAAkC;AACpC;AACA;EACE,+BAA+B;EAC/B,SAAS;EACT,mBAAmB;AACrB;;AAEA;EACE,wCAAwC;AAC1C;;AAEA;EACE,uCAAuC;AACzC;AACA;EACE,wCAAwC;AAC1C;AACA;EACE,wCAAwC;AAC1C;;AAEA;;;;;EAKE,sCAAsC;AACxC","sourcesContent":["body.dark-mode {\r\n  background-color: var(--surface);\r\n  color: var(--white);\r\n}\r\n\r\nbody.dark-mode .button {\r\n  background-color: var(--dimmer);\r\n  color: var(--white);\r\n  border: 0;\r\n}\r\nbody.dark-mode .button:hover {\r\n  background-color: var(--active);\r\n}\r\nbody.dark-mode .button:focus {\r\n  background-color: var(--active);\r\n}\r\n\r\nbody.dark-mode::-webkit-scrollbar {\r\n  background-color: var(--dimmer);\r\n}\r\nbody.dark-mode::-webkit-scrollbar-button {\r\n  display: none;\r\n}\r\nbody.dark-mode::-webkit-scrollbar-track {\r\n  background-color: var(--surface);\r\n}\r\nbody.dark-mode::-webkit-scrollbar-thumb {\r\n  background-color: var(--dimmer);\r\n  border-radius: 5px;\r\n}\r\nbody.dark-mode::-webkit-scrollbar-button:start:decrement,\r\nbody.dark-mode::-webkit-scrollbar-button:end:increment {\r\n  width: 16px;\r\n  height: 16px;\r\n  background: var(--surface);\r\n}\r\nbody.dark-mode .search-modal {\r\n  background-color: var(--surface);\r\n}\r\n\r\nbody.dark-mode .search-modal ::-webkit-scrollbar {\r\n  width: 16px;\r\n}\r\nbody.dark-mode .search-modal ::-webkit-scrollbar-button {\r\n  display: none;\r\n}\r\nbody.dark-mode .search-modal ::-webkit-scrollbar-track {\r\n  background-color: var(--surface);\r\n}\r\nbody.dark-mode .search-modal ::-webkit-scrollbar-thumb {\r\n  background-color: var(--dimmer);\r\n  border-radius: 5px;\r\n}\r\n\r\nbody.dark-mode .search-modal ::-webkit-scrollbar-button:start:decrement,\r\nbody.dark-mode .search-modal ::-webkit-scrollbar-button:end:increment {\r\n  width: 16px;\r\n  height: 16px;\r\n  background: var(--surface);\r\n}\r\nbody.dark-mode .confirm-modal__form {\r\n  background-color: var(--surface);\r\n  border-radius: 5px;\r\n  border: 1px solid var(--secondary-darken);\r\n}\r\nbody.dark-mode .confirm-modal__content {\r\n  background-color: var(--surface);\r\n  border-radius: 5px;\r\n}\r\nbody.dark-mode .confirm-modal__delete-button {\r\n  background-color: var(--primary-darken);\r\n}\r\nbody.dark-mode .confirm-modal__delete-button:hover {\r\n  background-color: var(--primary);\r\n}\r\nbody.dark-mode .confirm-modal__cancel-button {\r\n  background-color: var(--secondary-darken);\r\n}\r\nbody.dark-mode .confirm-modal__cancel-button:hover {\r\n  background-color: var(--secondary);\r\n}\r\nbody.dark-mode .search-input__keyword {\r\n  background-color: var(--dimmer);\r\n  border: 0;\r\n  color: var(--white);\r\n}\r\n\r\nbody.dark-mode .search-input__search-button {\r\n  background-color: var(--primary-darkest);\r\n}\r\n\r\nbody.dark-mode .search-input__search-button:hover {\r\n  background-color: var(--primary-darken);\r\n}\r\nbody.dark-mode .saved-button {\r\n  background-color: var(--primary-darkest);\r\n}\r\nbody.dark-mode .video-item__save-button:hover {\r\n  background-color: var(--primary-darkest);\r\n}\r\n\r\nbody.dark-mode .skeleton .video-item__thumbnail,\r\nbody.dark-mode .skeleton .video-item__title,\r\nbody.dark-mode .skeleton .video-item__channel-name,\r\nbody.dark-mode .skeleton .video-item__published-date,\r\nbody.dark-mode .skeleton .video-item__save-button {\r\n  background-image: var(--skeleton-dark);\r\n}\r\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "body.dark-mode {\r\n  background-color: var(--surface);\r\n  color: var(--white);\r\n}\r\n\r\nbody.dark-mode .button {\r\n  background-color: var(--dimmer);\r\n  color: var(--white);\r\n  border: 0;\r\n}\r\nbody.dark-mode .button:hover {\r\n  background-color: var(--active);\r\n}\r\nbody.dark-mode .button:focus {\r\n  background-color: var(--active);\r\n}\r\nbody.dark-mode .confirm-modal__form {\r\n  background-color: var(--surface);\r\n  border-radius: 5px;\r\n  border: 1px solid var(--secondary-darken);\r\n}\r\nbody.dark-mode .confirm-modal__content {\r\n  background-color: var(--surface);\r\n  border-radius: 5px;\r\n}\r\nbody.dark-mode .confirm-modal__delete-button {\r\n  background-color: var(--primary-darken);\r\n}\r\nbody.dark-mode .confirm-modal__delete-button:hover {\r\n  background-color: var(--primary);\r\n}\r\nbody.dark-mode .confirm-modal__cancel-button {\r\n  background-color: var(--secondary-darken);\r\n}\r\nbody.dark-mode .confirm-modal__cancel-button:hover {\r\n  background-color: var(--secondary);\r\n}\r\nbody.dark-mode .search-input__keyword {\r\n  background-color: var(--dimmer);\r\n  border: 0;\r\n  color: var(--white);\r\n}\r\n\r\nbody.dark-mode .search-input__search-button {\r\n  background-color: var(--primary-darkest);\r\n}\r\n\r\nbody.dark-mode .search-input__search-button:hover {\r\n  background-color: var(--primary-darken);\r\n}\r\nbody.dark-mode .saved-button {\r\n  background-color: var(--primary-darkest);\r\n}\r\nbody.dark-mode .video-item__save-button:hover {\r\n  background-color: var(--primary-darkest);\r\n}\r\n\r\nbody.dark-mode .skeleton .video-item__thumbnail,\r\nbody.dark-mode .skeleton .video-item__title,\r\nbody.dark-mode .skeleton .video-item__channel-name,\r\nbody.dark-mode .skeleton .video-item__published-date,\r\nbody.dark-mode .skeleton .video-item__save-button {\r\n  background-image: var(--skeleton-dark);\r\n}\r\n", "",{"version":3,"sources":["webpack://./src/css/darkMode.css"],"names":[],"mappings":"AAAA;EACE,gCAAgC;EAChC,mBAAmB;AACrB;;AAEA;EACE,+BAA+B;EAC/B,mBAAmB;EACnB,SAAS;AACX;AACA;EACE,+BAA+B;AACjC;AACA;EACE,+BAA+B;AACjC;AACA;EACE,gCAAgC;EAChC,kBAAkB;EAClB,yCAAyC;AAC3C;AACA;EACE,gCAAgC;EAChC,kBAAkB;AACpB;AACA;EACE,uCAAuC;AACzC;AACA;EACE,gCAAgC;AAClC;AACA;EACE,yCAAyC;AAC3C;AACA;EACE,kCAAkC;AACpC;AACA;EACE,+BAA+B;EAC/B,SAAS;EACT,mBAAmB;AACrB;;AAEA;EACE,wCAAwC;AAC1C;;AAEA;EACE,uCAAuC;AACzC;AACA;EACE,wCAAwC;AAC1C;AACA;EACE,wCAAwC;AAC1C;;AAEA;;;;;EAKE,sCAAsC;AACxC","sourcesContent":["body.dark-mode {\r\n  background-color: var(--surface);\r\n  color: var(--white);\r\n}\r\n\r\nbody.dark-mode .button {\r\n  background-color: var(--dimmer);\r\n  color: var(--white);\r\n  border: 0;\r\n}\r\nbody.dark-mode .button:hover {\r\n  background-color: var(--active);\r\n}\r\nbody.dark-mode .button:focus {\r\n  background-color: var(--active);\r\n}\r\nbody.dark-mode .confirm-modal__form {\r\n  background-color: var(--surface);\r\n  border-radius: 5px;\r\n  border: 1px solid var(--secondary-darken);\r\n}\r\nbody.dark-mode .confirm-modal__content {\r\n  background-color: var(--surface);\r\n  border-radius: 5px;\r\n}\r\nbody.dark-mode .confirm-modal__delete-button {\r\n  background-color: var(--primary-darken);\r\n}\r\nbody.dark-mode .confirm-modal__delete-button:hover {\r\n  background-color: var(--primary);\r\n}\r\nbody.dark-mode .confirm-modal__cancel-button {\r\n  background-color: var(--secondary-darken);\r\n}\r\nbody.dark-mode .confirm-modal__cancel-button:hover {\r\n  background-color: var(--secondary);\r\n}\r\nbody.dark-mode .search-input__keyword {\r\n  background-color: var(--dimmer);\r\n  border: 0;\r\n  color: var(--white);\r\n}\r\n\r\nbody.dark-mode .search-input__search-button {\r\n  background-color: var(--primary-darkest);\r\n}\r\n\r\nbody.dark-mode .search-input__search-button:hover {\r\n  background-color: var(--primary-darken);\r\n}\r\nbody.dark-mode .saved-button {\r\n  background-color: var(--primary-darkest);\r\n}\r\nbody.dark-mode .video-item__save-button:hover {\r\n  background-color: var(--primary-darkest);\r\n}\r\n\r\nbody.dark-mode .skeleton .video-item__thumbnail,\r\nbody.dark-mode .skeleton .video-item__title,\r\nbody.dark-mode .skeleton .video-item__channel-name,\r\nbody.dark-mode .skeleton .video-item__published-date,\r\nbody.dark-mode .skeleton .video-item__save-button {\r\n  background-image: var(--skeleton-dark);\r\n}\r\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1610,7 +1751,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_css_loader_dist_cjs_js_toast_css__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! -!../../node_modules/css-loader/dist/cjs.js!./toast.css */ "./node_modules/css-loader/dist/cjs.js!./src/css/toast.css");
 /* harmony import */ var _node_modules_css_loader_dist_cjs_js_toggle_css__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! -!../../node_modules/css-loader/dist/cjs.js!./toggle.css */ "./node_modules/css-loader/dist/cjs.js!./src/css/toggle.css");
 /* harmony import */ var _node_modules_css_loader_dist_cjs_js_darkMode_css__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! -!../../node_modules/css-loader/dist/cjs.js!./darkMode.css */ "./node_modules/css-loader/dist/cjs.js!./src/css/darkMode.css");
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_scrollBar_css__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! -!../../node_modules/css-loader/dist/cjs.js!./scrollBar.css */ "./node_modules/css-loader/dist/cjs.js!./src/css/scrollBar.css");
 // Imports
+
 
 
 
@@ -1630,8 +1773,9 @@ ___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_confirmModal_css_
 ___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_toast_css__WEBPACK_IMPORTED_MODULE_7__["default"]);
 ___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_toggle_css__WEBPACK_IMPORTED_MODULE_8__["default"]);
 ___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_darkMode_css__WEBPACK_IMPORTED_MODULE_9__["default"]);
+___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_scrollBar_css__WEBPACK_IMPORTED_MODULE_10__["default"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "* {\r\n  margin: 0;\r\n  padding: 0;\r\n  box-sizing: border-box;\r\n}\r\n\r\nol,\r\nul {\r\n  list-style: none;\r\n}\r\n\r\nhtml,\r\nbody {\r\n  height: 100%;\r\n  -webkit-font-smoothing: antialiased;\r\n}\r\n\r\ninput,\r\nbutton,\r\ntextarea,\r\nselect {\r\n  font: inherit;\r\n}\r\n", "",{"version":3,"sources":["webpack://./src/css/index.css"],"names":[],"mappings":"AASA;EACE,SAAS;EACT,UAAU;EACV,sBAAsB;AACxB;;AAEA;;EAEE,gBAAgB;AAClB;;AAEA;;EAEE,YAAY;EACZ,mCAAmC;AACrC;;AAEA;;;;EAIE,aAAa;AACf","sourcesContent":["@import './root.css';\r\n@import './app.css';\r\n@import './modal.css';\r\n@import './skeleton.css';\r\n@import './confirmModal.css';\r\n@import './toast.css';\r\n@import './toggle.css';\r\n@import './darkMode.css';\r\n\r\n* {\r\n  margin: 0;\r\n  padding: 0;\r\n  box-sizing: border-box;\r\n}\r\n\r\nol,\r\nul {\r\n  list-style: none;\r\n}\r\n\r\nhtml,\r\nbody {\r\n  height: 100%;\r\n  -webkit-font-smoothing: antialiased;\r\n}\r\n\r\ninput,\r\nbutton,\r\ntextarea,\r\nselect {\r\n  font: inherit;\r\n}\r\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "* {\r\n  margin: 0;\r\n  padding: 0;\r\n  box-sizing: border-box;\r\n}\r\n\r\nol,\r\nul {\r\n  list-style: none;\r\n}\r\n\r\nhtml,\r\nbody {\r\n  height: 100%;\r\n  -webkit-font-smoothing: antialiased;\r\n  color: var(--font);\r\n}\r\n\r\ninput,\r\nbutton,\r\ntextarea,\r\nselect {\r\n  font: inherit;\r\n  background-color: var(--secondary-lighten);\r\n  color: var(--font);\r\n}\r\n\r\nbutton:hover {\r\n  background-color: var(--secondary-darken);\r\n}\r\n", "",{"version":3,"sources":["webpack://./src/css/index.css"],"names":[],"mappings":"AAUA;EACE,SAAS;EACT,UAAU;EACV,sBAAsB;AACxB;;AAEA;;EAEE,gBAAgB;AAClB;;AAEA;;EAEE,YAAY;EACZ,mCAAmC;EACnC,kBAAkB;AACpB;;AAEA;;;;EAIE,aAAa;EACb,0CAA0C;EAC1C,kBAAkB;AACpB;;AAEA;EACE,yCAAyC;AAC3C","sourcesContent":["@import './root.css';\r\n@import './app.css';\r\n@import './modal.css';\r\n@import './skeleton.css';\r\n@import './confirmModal.css';\r\n@import './toast.css';\r\n@import './toggle.css';\r\n@import './darkMode.css';\r\n@import './scrollBar.css';\r\n\r\n* {\r\n  margin: 0;\r\n  padding: 0;\r\n  box-sizing: border-box;\r\n}\r\n\r\nol,\r\nul {\r\n  list-style: none;\r\n}\r\n\r\nhtml,\r\nbody {\r\n  height: 100%;\r\n  -webkit-font-smoothing: antialiased;\r\n  color: var(--font);\r\n}\r\n\r\ninput,\r\nbutton,\r\ntextarea,\r\nselect {\r\n  font: inherit;\r\n  background-color: var(--secondary-lighten);\r\n  color: var(--font);\r\n}\r\n\r\nbutton:hover {\r\n  background-color: var(--secondary-darken);\r\n}\r\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1658,7 +1802,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".modal-container {\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  width: 100vw;\r\n  height: 100vh;\r\n  position: fixed;\r\n  top: 0;\r\n  left: 0;\r\n}\r\n\r\n.hide {\r\n  display: none !important;\r\n}\r\n\r\n.dimmer {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100%;\r\n  background: var(--dimmer);\r\n}\r\n\r\n.search-modal {\r\n  position: relative;\r\n  width: 1080px;\r\n  height: 727px;\r\n  background: #ffffff;\r\n  border: 1px solid var(--secondary);\r\n  border-radius: 4px;\r\n  padding: 20px 30px 20px 30px;\r\n}\r\n\r\n.search-modal__title {\r\n  font-weight: bold;\r\n  font-size: 34px;\r\n  line-height: 36px;\r\n  text-align: center;\r\n  margin-bottom: 40px;\r\n}\r\n\r\n.search-input {\r\n  display: flex;\r\n  justify-content: center;\r\n  margin-bottom: 40px;\r\n}\r\n\r\n.search-input__keyword {\r\n  width: 400px;\r\n  height: 36px;\r\n  margin: 0 5px 0 0;\r\n  padding: 4px 8px;\r\n  border: 1px solid var(--secondary);\r\n  border-radius: 4px;\r\n}\r\n\r\n.search-input__keyword::placeholder {\r\n  color: var(--secondary);\r\n  font-size: 16px;\r\n}\r\n\r\n.search-input__search-button {\r\n  width: 72px;\r\n  height: 36px;\r\n  background: var(--primary);\r\n  color: var(--white);\r\n}\r\n\r\n.search-result.search-result--no-result {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  justify-content: center;\r\n  height: 493px;\r\n}\r\n\r\n.no-result {\r\n  align-items: center;\r\n  text-align: center;\r\n}\r\n\r\n.no-result__image {\r\n  width: 190px;\r\n  height: 140px;\r\n  margin-bottom: 32px;\r\n}\r\n\r\n.no-result__description {\r\n  font-size: 16px;\r\n  line-height: 150%;\r\n  text-align: center;\r\n}\r\n\r\n.search-target {\r\n  width: 100%;\r\n}\r\n\r\n.video-list {\r\n  width: 100%;\r\n  max-width: 1040px;\r\n  display: grid;\r\n  grid-template-columns: repeat(4, 1fr);\r\n  gap: 32px 15px;\r\n  height: 493px;\r\n  overflow: hidden;\r\n}\r\n\r\n.scroll {\r\n  overflow-y: scroll;\r\n}\r\n\r\n.video-item {\r\n  position: relative;\r\n  width: 225px;\r\n  height: 255px;\r\n}\r\n\r\n.video-item__thumbnail {\r\n  width: 100%;\r\n  height: 135px;\r\n}\r\n\r\n.video-item__title {\r\n  font-weight: bold;\r\n  font-size: 16px;\r\n  line-height: 24px;\r\n  white-space: nowrap;\r\n  overflow: hidden;\r\n  text-overflow: ellipsis;\r\n  margin: 4px 0;\r\n}\r\n\r\n.video-item__channel-name {\r\n  font-size: 16px;\r\n  line-height: 24px;\r\n  white-space: nowrap;\r\n  overflow: hidden;\r\n  text-overflow: ellipsis;\r\n}\r\n\r\n.video-item__published-date {\r\n  font-size: 12px;\r\n  line-height: 24px;\r\n  letter-spacing: 1px;\r\n}\r\n\r\n.video-item__save-button {\r\n  position: absolute;\r\n  right: 0;\r\n  width: 80px;\r\n  height: 36px;\r\n  background-color: var(--secondary-lighten);\r\n  margin-top: 4px;\r\n}\r\n\r\n.video-item__save-button:hover {\r\n  background-color: var(--secondary);\r\n}\r\n\r\n.saved-button {\r\n  color: white;\r\n  cursor: default;\r\n  background-color: var(--primary);\r\n}\r\n\r\n.saved-button:hover {\r\n  color: white;\r\n  background-color: var(--primary);\r\n}\r\n\r\n.x-shape {\r\n  box-sizing: border-box;\r\n  display: flex;\r\n  width: 100%;\r\n  justify-content: flex-end;\r\n  cursor: pointer;\r\n}\r\n\r\n.x-shape:after {\r\n  content: '\\00d7';\r\n  font-size: 20pt;\r\n  font-weight: bolder;\r\n}\r\n\r\n@media screen and (max-width: 1280px) {\r\n  .search-modal {\r\n    width: 840px;\r\n  }\r\n\r\n  .video-list {\r\n    grid-template-columns: repeat(3, 1fr);\r\n  }\r\n\r\n  .search-modal__title {\r\n    font-size: 32px;\r\n  }\r\n}\r\n\r\n@media screen and (max-width: 960px) {\r\n  .search-modal {\r\n    width: 570px;\r\n  }\r\n\r\n  .video-list {\r\n    grid-template-columns: repeat(2, 1fr);\r\n  }\r\n\r\n  .search-modal__title {\r\n    font-size: 30px;\r\n  }\r\n}\r\n\r\n@media screen and (max-width: 600px) {\r\n  .search-modal {\r\n    margin: 0;\r\n    width: 430px;\r\n  }\r\n\r\n  .video-list {\r\n    grid-template-columns: 1fr;\r\n    gap: 0;\r\n  }\r\n\r\n  .search-modal__title {\r\n    font-size: 22px;\r\n    margin-bottom: 20px;\r\n  }\r\n  .search-input__keyword {\r\n    width: 85%;\r\n  }\r\n}\r\n", "",{"version":3,"sources":["webpack://./src/css/modal.css"],"names":[],"mappings":"AAAA;EACE,aAAa;EACb,mBAAmB;EACnB,uBAAuB;EACvB,YAAY;EACZ,aAAa;EACb,eAAe;EACf,MAAM;EACN,OAAO;AACT;;AAEA;EACE,wBAAwB;AAC1B;;AAEA;EACE,kBAAkB;EAClB,WAAW;EACX,YAAY;EACZ,yBAAyB;AAC3B;;AAEA;EACE,kBAAkB;EAClB,aAAa;EACb,aAAa;EACb,mBAAmB;EACnB,kCAAkC;EAClC,kBAAkB;EAClB,4BAA4B;AAC9B;;AAEA;EACE,iBAAiB;EACjB,eAAe;EACf,iBAAiB;EACjB,kBAAkB;EAClB,mBAAmB;AACrB;;AAEA;EACE,aAAa;EACb,uBAAuB;EACvB,mBAAmB;AACrB;;AAEA;EACE,YAAY;EACZ,YAAY;EACZ,iBAAiB;EACjB,gBAAgB;EAChB,kCAAkC;EAClC,kBAAkB;AACpB;;AAEA;EACE,uBAAuB;EACvB,eAAe;AACjB;;AAEA;EACE,WAAW;EACX,YAAY;EACZ,0BAA0B;EAC1B,mBAAmB;AACrB;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,mBAAmB;EACnB,uBAAuB;EACvB,aAAa;AACf;;AAEA;EACE,mBAAmB;EACnB,kBAAkB;AACpB;;AAEA;EACE,YAAY;EACZ,aAAa;EACb,mBAAmB;AACrB;;AAEA;EACE,eAAe;EACf,iBAAiB;EACjB,kBAAkB;AACpB;;AAEA;EACE,WAAW;AACb;;AAEA;EACE,WAAW;EACX,iBAAiB;EACjB,aAAa;EACb,qCAAqC;EACrC,cAAc;EACd,aAAa;EACb,gBAAgB;AAClB;;AAEA;EACE,kBAAkB;AACpB;;AAEA;EACE,kBAAkB;EAClB,YAAY;EACZ,aAAa;AACf;;AAEA;EACE,WAAW;EACX,aAAa;AACf;;AAEA;EACE,iBAAiB;EACjB,eAAe;EACf,iBAAiB;EACjB,mBAAmB;EACnB,gBAAgB;EAChB,uBAAuB;EACvB,aAAa;AACf;;AAEA;EACE,eAAe;EACf,iBAAiB;EACjB,mBAAmB;EACnB,gBAAgB;EAChB,uBAAuB;AACzB;;AAEA;EACE,eAAe;EACf,iBAAiB;EACjB,mBAAmB;AACrB;;AAEA;EACE,kBAAkB;EAClB,QAAQ;EACR,WAAW;EACX,YAAY;EACZ,0CAA0C;EAC1C,eAAe;AACjB;;AAEA;EACE,kCAAkC;AACpC;;AAEA;EACE,YAAY;EACZ,eAAe;EACf,gCAAgC;AAClC;;AAEA;EACE,YAAY;EACZ,gCAAgC;AAClC;;AAEA;EACE,sBAAsB;EACtB,aAAa;EACb,WAAW;EACX,yBAAyB;EACzB,eAAe;AACjB;;AAEA;EACE,gBAAgB;EAChB,eAAe;EACf,mBAAmB;AACrB;;AAEA;EACE;IACE,YAAY;EACd;;EAEA;IACE,qCAAqC;EACvC;;EAEA;IACE,eAAe;EACjB;AACF;;AAEA;EACE;IACE,YAAY;EACd;;EAEA;IACE,qCAAqC;EACvC;;EAEA;IACE,eAAe;EACjB;AACF;;AAEA;EACE;IACE,SAAS;IACT,YAAY;EACd;;EAEA;IACE,0BAA0B;IAC1B,MAAM;EACR;;EAEA;IACE,eAAe;IACf,mBAAmB;EACrB;EACA;IACE,UAAU;EACZ;AACF","sourcesContent":[".modal-container {\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  width: 100vw;\r\n  height: 100vh;\r\n  position: fixed;\r\n  top: 0;\r\n  left: 0;\r\n}\r\n\r\n.hide {\r\n  display: none !important;\r\n}\r\n\r\n.dimmer {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100%;\r\n  background: var(--dimmer);\r\n}\r\n\r\n.search-modal {\r\n  position: relative;\r\n  width: 1080px;\r\n  height: 727px;\r\n  background: #ffffff;\r\n  border: 1px solid var(--secondary);\r\n  border-radius: 4px;\r\n  padding: 20px 30px 20px 30px;\r\n}\r\n\r\n.search-modal__title {\r\n  font-weight: bold;\r\n  font-size: 34px;\r\n  line-height: 36px;\r\n  text-align: center;\r\n  margin-bottom: 40px;\r\n}\r\n\r\n.search-input {\r\n  display: flex;\r\n  justify-content: center;\r\n  margin-bottom: 40px;\r\n}\r\n\r\n.search-input__keyword {\r\n  width: 400px;\r\n  height: 36px;\r\n  margin: 0 5px 0 0;\r\n  padding: 4px 8px;\r\n  border: 1px solid var(--secondary);\r\n  border-radius: 4px;\r\n}\r\n\r\n.search-input__keyword::placeholder {\r\n  color: var(--secondary);\r\n  font-size: 16px;\r\n}\r\n\r\n.search-input__search-button {\r\n  width: 72px;\r\n  height: 36px;\r\n  background: var(--primary);\r\n  color: var(--white);\r\n}\r\n\r\n.search-result.search-result--no-result {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  justify-content: center;\r\n  height: 493px;\r\n}\r\n\r\n.no-result {\r\n  align-items: center;\r\n  text-align: center;\r\n}\r\n\r\n.no-result__image {\r\n  width: 190px;\r\n  height: 140px;\r\n  margin-bottom: 32px;\r\n}\r\n\r\n.no-result__description {\r\n  font-size: 16px;\r\n  line-height: 150%;\r\n  text-align: center;\r\n}\r\n\r\n.search-target {\r\n  width: 100%;\r\n}\r\n\r\n.video-list {\r\n  width: 100%;\r\n  max-width: 1040px;\r\n  display: grid;\r\n  grid-template-columns: repeat(4, 1fr);\r\n  gap: 32px 15px;\r\n  height: 493px;\r\n  overflow: hidden;\r\n}\r\n\r\n.scroll {\r\n  overflow-y: scroll;\r\n}\r\n\r\n.video-item {\r\n  position: relative;\r\n  width: 225px;\r\n  height: 255px;\r\n}\r\n\r\n.video-item__thumbnail {\r\n  width: 100%;\r\n  height: 135px;\r\n}\r\n\r\n.video-item__title {\r\n  font-weight: bold;\r\n  font-size: 16px;\r\n  line-height: 24px;\r\n  white-space: nowrap;\r\n  overflow: hidden;\r\n  text-overflow: ellipsis;\r\n  margin: 4px 0;\r\n}\r\n\r\n.video-item__channel-name {\r\n  font-size: 16px;\r\n  line-height: 24px;\r\n  white-space: nowrap;\r\n  overflow: hidden;\r\n  text-overflow: ellipsis;\r\n}\r\n\r\n.video-item__published-date {\r\n  font-size: 12px;\r\n  line-height: 24px;\r\n  letter-spacing: 1px;\r\n}\r\n\r\n.video-item__save-button {\r\n  position: absolute;\r\n  right: 0;\r\n  width: 80px;\r\n  height: 36px;\r\n  background-color: var(--secondary-lighten);\r\n  margin-top: 4px;\r\n}\r\n\r\n.video-item__save-button:hover {\r\n  background-color: var(--secondary);\r\n}\r\n\r\n.saved-button {\r\n  color: white;\r\n  cursor: default;\r\n  background-color: var(--primary);\r\n}\r\n\r\n.saved-button:hover {\r\n  color: white;\r\n  background-color: var(--primary);\r\n}\r\n\r\n.x-shape {\r\n  box-sizing: border-box;\r\n  display: flex;\r\n  width: 100%;\r\n  justify-content: flex-end;\r\n  cursor: pointer;\r\n}\r\n\r\n.x-shape:after {\r\n  content: '\\00d7';\r\n  font-size: 20pt;\r\n  font-weight: bolder;\r\n}\r\n\r\n@media screen and (max-width: 1280px) {\r\n  .search-modal {\r\n    width: 840px;\r\n  }\r\n\r\n  .video-list {\r\n    grid-template-columns: repeat(3, 1fr);\r\n  }\r\n\r\n  .search-modal__title {\r\n    font-size: 32px;\r\n  }\r\n}\r\n\r\n@media screen and (max-width: 960px) {\r\n  .search-modal {\r\n    width: 570px;\r\n  }\r\n\r\n  .video-list {\r\n    grid-template-columns: repeat(2, 1fr);\r\n  }\r\n\r\n  .search-modal__title {\r\n    font-size: 30px;\r\n  }\r\n}\r\n\r\n@media screen and (max-width: 600px) {\r\n  .search-modal {\r\n    margin: 0;\r\n    width: 430px;\r\n  }\r\n\r\n  .video-list {\r\n    grid-template-columns: 1fr;\r\n    gap: 0;\r\n  }\r\n\r\n  .search-modal__title {\r\n    font-size: 22px;\r\n    margin-bottom: 20px;\r\n  }\r\n  .search-input__keyword {\r\n    width: 85%;\r\n  }\r\n}\r\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, ".modal-container {\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  width: 100vw;\r\n  height: 100vh;\r\n  position: fixed;\r\n  top: 0;\r\n  left: 0;\r\n}\r\n\r\n.hide {\r\n  display: none !important;\r\n}\r\n\r\n.dimmer {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100%;\r\n  background: var(--dimmer);\r\n}\r\n\r\n.search-modal {\r\n  position: relative;\r\n  width: 1080px;\r\n  height: 727px;\r\n  background: var(--background);\r\n  border: 1px solid var(--secondary);\r\n  border-radius: 4px;\r\n  padding: 20px 30px;\r\n}\r\n\r\n.search-modal__title {\r\n  font-weight: bold;\r\n  font-size: 34px;\r\n  line-height: 36px;\r\n  text-align: center;\r\n  margin-bottom: 40px;\r\n}\r\n\r\n.search-input {\r\n  display: flex;\r\n  justify-content: center;\r\n  margin-bottom: 40px;\r\n}\r\n\r\n.search-input__keyword {\r\n  width: 400px;\r\n  height: 36px;\r\n  margin: 0 5px 0 0;\r\n  padding: 4px 8px;\r\n  border: 1px solid var(--secondary);\r\n  border-radius: 4px;\r\n}\r\n\r\n.search-input__keyword::placeholder {\r\n  color: var(--secondary);\r\n  font-size: 16px;\r\n}\r\n\r\n.search-input__search-button {\r\n  width: 72px;\r\n  height: 36px;\r\n  background: var(--primary);\r\n  color: var(--white);\r\n}\r\n\r\n.search-input__search-button:hover {\r\n  background-color: var(--primary-darken);\r\n}\r\n\r\n.search-result.search-result--no-result {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  justify-content: center;\r\n  height: 493px;\r\n}\r\n\r\n.no-result {\r\n  align-items: center;\r\n  text-align: center;\r\n}\r\n\r\n.no-result__image {\r\n  width: 190px;\r\n  height: 140px;\r\n  margin-bottom: 32px;\r\n}\r\n\r\n.no-result__description {\r\n  font-size: 16px;\r\n  line-height: 150%;\r\n  text-align: center;\r\n}\r\n\r\n.search-target {\r\n  width: 100%;\r\n}\r\n\r\n.video-list {\r\n  width: 100%;\r\n  max-width: 1040px;\r\n  display: grid;\r\n  grid-template-columns: repeat(4, 1fr);\r\n  gap: 32px 15px;\r\n  height: 493px;\r\n  overflow: hidden;\r\n}\r\n\r\n.scroll {\r\n  overflow-y: scroll;\r\n}\r\n\r\n.video-item {\r\n  position: relative;\r\n  width: 225px;\r\n  height: 255px;\r\n}\r\n\r\n.video-item__thumbnail {\r\n  width: 100%;\r\n  height: 135px;\r\n}\r\n\r\n.video-item__title {\r\n  font-weight: bold;\r\n  font-size: 16px;\r\n  line-height: 24px;\r\n  white-space: nowrap;\r\n  overflow: hidden;\r\n  text-overflow: ellipsis;\r\n  margin: 4px 0;\r\n}\r\n\r\n.video-item__channel-name {\r\n  font-size: 16px;\r\n  line-height: 24px;\r\n  white-space: nowrap;\r\n  overflow: hidden;\r\n  text-overflow: ellipsis;\r\n}\r\n\r\n.video-item__published-date {\r\n  font-size: 12px;\r\n  line-height: 24px;\r\n  letter-spacing: 1px;\r\n}\r\n\r\n.video-item__save-button {\r\n  position: absolute;\r\n  right: 0;\r\n  width: 80px;\r\n  height: 36px;\r\n  background-color: var(--secondary-lighten);\r\n  margin-top: 4px;\r\n}\r\n\r\n.video-item__save-button:hover {\r\n  background-color: var(--primary);\r\n}\r\n\r\n.saved-button {\r\n  color: white;\r\n  cursor: default;\r\n  background-color: var(--primary);\r\n}\r\n\r\n.saved-button:hover {\r\n  color: white;\r\n  background-color: var(--primary);\r\n}\r\n\r\n.x-shape {\r\n  box-sizing: border-box;\r\n  display: flex;\r\n  width: 100%;\r\n  justify-content: flex-end;\r\n  cursor: pointer;\r\n}\r\n\r\n.x-shape::after {\r\n  content: '\\00d7';\r\n  font-size: 20pt;\r\n  font-weight: bolder;\r\n}\r\n\r\n@media screen and (max-width: 1280px) {\r\n  .search-modal {\r\n    width: 840px;\r\n  }\r\n\r\n  .video-list {\r\n    grid-template-columns: repeat(3, 1fr);\r\n  }\r\n\r\n  .search-modal__title {\r\n    font-size: 32px;\r\n  }\r\n}\r\n\r\n@media screen and (max-width: 960px) {\r\n  .search-modal {\r\n    width: 570px;\r\n  }\r\n\r\n  .video-list {\r\n    grid-template-columns: repeat(2, 1fr);\r\n  }\r\n\r\n  .search-modal__title {\r\n    font-size: 30px;\r\n  }\r\n}\r\n\r\n@media screen and (max-width: 600px) {\r\n  .search-modal {\r\n    margin: 0;\r\n    width: 430px;\r\n  }\r\n\r\n  .video-list {\r\n    grid-template-columns: 1fr;\r\n    gap: 0;\r\n  }\r\n\r\n  .search-modal__title {\r\n    font-size: 22px;\r\n    margin-bottom: 20px;\r\n  }\r\n  .search-input__keyword {\r\n    width: 85%;\r\n  }\r\n}\r\n", "",{"version":3,"sources":["webpack://./src/css/modal.css"],"names":[],"mappings":"AAAA;EACE,aAAa;EACb,mBAAmB;EACnB,uBAAuB;EACvB,YAAY;EACZ,aAAa;EACb,eAAe;EACf,MAAM;EACN,OAAO;AACT;;AAEA;EACE,wBAAwB;AAC1B;;AAEA;EACE,kBAAkB;EAClB,WAAW;EACX,YAAY;EACZ,yBAAyB;AAC3B;;AAEA;EACE,kBAAkB;EAClB,aAAa;EACb,aAAa;EACb,6BAA6B;EAC7B,kCAAkC;EAClC,kBAAkB;EAClB,kBAAkB;AACpB;;AAEA;EACE,iBAAiB;EACjB,eAAe;EACf,iBAAiB;EACjB,kBAAkB;EAClB,mBAAmB;AACrB;;AAEA;EACE,aAAa;EACb,uBAAuB;EACvB,mBAAmB;AACrB;;AAEA;EACE,YAAY;EACZ,YAAY;EACZ,iBAAiB;EACjB,gBAAgB;EAChB,kCAAkC;EAClC,kBAAkB;AACpB;;AAEA;EACE,uBAAuB;EACvB,eAAe;AACjB;;AAEA;EACE,WAAW;EACX,YAAY;EACZ,0BAA0B;EAC1B,mBAAmB;AACrB;;AAEA;EACE,uCAAuC;AACzC;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,mBAAmB;EACnB,uBAAuB;EACvB,aAAa;AACf;;AAEA;EACE,mBAAmB;EACnB,kBAAkB;AACpB;;AAEA;EACE,YAAY;EACZ,aAAa;EACb,mBAAmB;AACrB;;AAEA;EACE,eAAe;EACf,iBAAiB;EACjB,kBAAkB;AACpB;;AAEA;EACE,WAAW;AACb;;AAEA;EACE,WAAW;EACX,iBAAiB;EACjB,aAAa;EACb,qCAAqC;EACrC,cAAc;EACd,aAAa;EACb,gBAAgB;AAClB;;AAEA;EACE,kBAAkB;AACpB;;AAEA;EACE,kBAAkB;EAClB,YAAY;EACZ,aAAa;AACf;;AAEA;EACE,WAAW;EACX,aAAa;AACf;;AAEA;EACE,iBAAiB;EACjB,eAAe;EACf,iBAAiB;EACjB,mBAAmB;EACnB,gBAAgB;EAChB,uBAAuB;EACvB,aAAa;AACf;;AAEA;EACE,eAAe;EACf,iBAAiB;EACjB,mBAAmB;EACnB,gBAAgB;EAChB,uBAAuB;AACzB;;AAEA;EACE,eAAe;EACf,iBAAiB;EACjB,mBAAmB;AACrB;;AAEA;EACE,kBAAkB;EAClB,QAAQ;EACR,WAAW;EACX,YAAY;EACZ,0CAA0C;EAC1C,eAAe;AACjB;;AAEA;EACE,gCAAgC;AAClC;;AAEA;EACE,YAAY;EACZ,eAAe;EACf,gCAAgC;AAClC;;AAEA;EACE,YAAY;EACZ,gCAAgC;AAClC;;AAEA;EACE,sBAAsB;EACtB,aAAa;EACb,WAAW;EACX,yBAAyB;EACzB,eAAe;AACjB;;AAEA;EACE,gBAAgB;EAChB,eAAe;EACf,mBAAmB;AACrB;;AAEA;EACE;IACE,YAAY;EACd;;EAEA;IACE,qCAAqC;EACvC;;EAEA;IACE,eAAe;EACjB;AACF;;AAEA;EACE;IACE,YAAY;EACd;;EAEA;IACE,qCAAqC;EACvC;;EAEA;IACE,eAAe;EACjB;AACF;;AAEA;EACE;IACE,SAAS;IACT,YAAY;EACd;;EAEA;IACE,0BAA0B;IAC1B,MAAM;EACR;;EAEA;IACE,eAAe;IACf,mBAAmB;EACrB;EACA;IACE,UAAU;EACZ;AACF","sourcesContent":[".modal-container {\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  width: 100vw;\r\n  height: 100vh;\r\n  position: fixed;\r\n  top: 0;\r\n  left: 0;\r\n}\r\n\r\n.hide {\r\n  display: none !important;\r\n}\r\n\r\n.dimmer {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100%;\r\n  background: var(--dimmer);\r\n}\r\n\r\n.search-modal {\r\n  position: relative;\r\n  width: 1080px;\r\n  height: 727px;\r\n  background: var(--background);\r\n  border: 1px solid var(--secondary);\r\n  border-radius: 4px;\r\n  padding: 20px 30px;\r\n}\r\n\r\n.search-modal__title {\r\n  font-weight: bold;\r\n  font-size: 34px;\r\n  line-height: 36px;\r\n  text-align: center;\r\n  margin-bottom: 40px;\r\n}\r\n\r\n.search-input {\r\n  display: flex;\r\n  justify-content: center;\r\n  margin-bottom: 40px;\r\n}\r\n\r\n.search-input__keyword {\r\n  width: 400px;\r\n  height: 36px;\r\n  margin: 0 5px 0 0;\r\n  padding: 4px 8px;\r\n  border: 1px solid var(--secondary);\r\n  border-radius: 4px;\r\n}\r\n\r\n.search-input__keyword::placeholder {\r\n  color: var(--secondary);\r\n  font-size: 16px;\r\n}\r\n\r\n.search-input__search-button {\r\n  width: 72px;\r\n  height: 36px;\r\n  background: var(--primary);\r\n  color: var(--white);\r\n}\r\n\r\n.search-input__search-button:hover {\r\n  background-color: var(--primary-darken);\r\n}\r\n\r\n.search-result.search-result--no-result {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  justify-content: center;\r\n  height: 493px;\r\n}\r\n\r\n.no-result {\r\n  align-items: center;\r\n  text-align: center;\r\n}\r\n\r\n.no-result__image {\r\n  width: 190px;\r\n  height: 140px;\r\n  margin-bottom: 32px;\r\n}\r\n\r\n.no-result__description {\r\n  font-size: 16px;\r\n  line-height: 150%;\r\n  text-align: center;\r\n}\r\n\r\n.search-target {\r\n  width: 100%;\r\n}\r\n\r\n.video-list {\r\n  width: 100%;\r\n  max-width: 1040px;\r\n  display: grid;\r\n  grid-template-columns: repeat(4, 1fr);\r\n  gap: 32px 15px;\r\n  height: 493px;\r\n  overflow: hidden;\r\n}\r\n\r\n.scroll {\r\n  overflow-y: scroll;\r\n}\r\n\r\n.video-item {\r\n  position: relative;\r\n  width: 225px;\r\n  height: 255px;\r\n}\r\n\r\n.video-item__thumbnail {\r\n  width: 100%;\r\n  height: 135px;\r\n}\r\n\r\n.video-item__title {\r\n  font-weight: bold;\r\n  font-size: 16px;\r\n  line-height: 24px;\r\n  white-space: nowrap;\r\n  overflow: hidden;\r\n  text-overflow: ellipsis;\r\n  margin: 4px 0;\r\n}\r\n\r\n.video-item__channel-name {\r\n  font-size: 16px;\r\n  line-height: 24px;\r\n  white-space: nowrap;\r\n  overflow: hidden;\r\n  text-overflow: ellipsis;\r\n}\r\n\r\n.video-item__published-date {\r\n  font-size: 12px;\r\n  line-height: 24px;\r\n  letter-spacing: 1px;\r\n}\r\n\r\n.video-item__save-button {\r\n  position: absolute;\r\n  right: 0;\r\n  width: 80px;\r\n  height: 36px;\r\n  background-color: var(--secondary-lighten);\r\n  margin-top: 4px;\r\n}\r\n\r\n.video-item__save-button:hover {\r\n  background-color: var(--primary);\r\n}\r\n\r\n.saved-button {\r\n  color: white;\r\n  cursor: default;\r\n  background-color: var(--primary);\r\n}\r\n\r\n.saved-button:hover {\r\n  color: white;\r\n  background-color: var(--primary);\r\n}\r\n\r\n.x-shape {\r\n  box-sizing: border-box;\r\n  display: flex;\r\n  width: 100%;\r\n  justify-content: flex-end;\r\n  cursor: pointer;\r\n}\r\n\r\n.x-shape::after {\r\n  content: '\\00d7';\r\n  font-size: 20pt;\r\n  font-weight: bolder;\r\n}\r\n\r\n@media screen and (max-width: 1280px) {\r\n  .search-modal {\r\n    width: 840px;\r\n  }\r\n\r\n  .video-list {\r\n    grid-template-columns: repeat(3, 1fr);\r\n  }\r\n\r\n  .search-modal__title {\r\n    font-size: 32px;\r\n  }\r\n}\r\n\r\n@media screen and (max-width: 960px) {\r\n  .search-modal {\r\n    width: 570px;\r\n  }\r\n\r\n  .video-list {\r\n    grid-template-columns: repeat(2, 1fr);\r\n  }\r\n\r\n  .search-modal__title {\r\n    font-size: 30px;\r\n  }\r\n}\r\n\r\n@media screen and (max-width: 600px) {\r\n  .search-modal {\r\n    margin: 0;\r\n    width: 430px;\r\n  }\r\n\r\n  .video-list {\r\n    grid-template-columns: 1fr;\r\n    gap: 0;\r\n  }\r\n\r\n  .search-modal__title {\r\n    font-size: 22px;\r\n    margin-bottom: 20px;\r\n  }\r\n  .search-input__keyword {\r\n    width: 85%;\r\n  }\r\n}\r\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1685,7 +1829,34 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ":root {\r\n  --primary: #00bcd4;\r\n  --primary-lighten: #80deea;\r\n  --primary-darken: #009eb3;\r\n  --primary-darkest: #008c9e;\r\n  --active: #00bbd446;\r\n  --secondary: #b4b4b4;\r\n  --secondary-lighten: #ededed;\r\n  --secondary-darken: #999999;\r\n  --surface: #212121;\r\n  --dimmer: rgba(0, 0, 0, 0.5);\r\n  --white: #ffffff;\r\n  --success: #61d688;\r\n  --error: #f08383;\r\n  --box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 2px 1px rgba(0, 0, 0, 0.12), 0px 1px 3px rgba(0, 0, 0, 0.2);\r\n  --skeleton-default: linear-gradient(to right, #f6f7f8 0%, #edeef1 10%, #f7f8f8 20%, #f6f7f8 100%);\r\n  --skeleton-dark: linear-gradient(to right, #242424 0%, #1b1b1b 10%, #2a2a2a 20%, #242424 100%);\r\n}\r\n", "",{"version":3,"sources":["webpack://./src/css/root.css"],"names":[],"mappings":"AAAA;EACE,kBAAkB;EAClB,0BAA0B;EAC1B,yBAAyB;EACzB,0BAA0B;EAC1B,mBAAmB;EACnB,oBAAoB;EACpB,4BAA4B;EAC5B,2BAA2B;EAC3B,kBAAkB;EAClB,4BAA4B;EAC5B,gBAAgB;EAChB,kBAAkB;EAClB,gBAAgB;EAChB,8GAA8G;EAC9G,iGAAiG;EACjG,8FAA8F;AAChG","sourcesContent":[":root {\r\n  --primary: #00bcd4;\r\n  --primary-lighten: #80deea;\r\n  --primary-darken: #009eb3;\r\n  --primary-darkest: #008c9e;\r\n  --active: #00bbd446;\r\n  --secondary: #b4b4b4;\r\n  --secondary-lighten: #ededed;\r\n  --secondary-darken: #999999;\r\n  --surface: #212121;\r\n  --dimmer: rgba(0, 0, 0, 0.5);\r\n  --white: #ffffff;\r\n  --success: #61d688;\r\n  --error: #f08383;\r\n  --box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 2px 1px rgba(0, 0, 0, 0.12), 0px 1px 3px rgba(0, 0, 0, 0.2);\r\n  --skeleton-default: linear-gradient(to right, #f6f7f8 0%, #edeef1 10%, #f7f8f8 20%, #f6f7f8 100%);\r\n  --skeleton-dark: linear-gradient(to right, #242424 0%, #1b1b1b 10%, #2a2a2a 20%, #242424 100%);\r\n}\r\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, ":root {\r\n  --font: #000000;\r\n  --buttonInput: #b4b4b4;\r\n  --background: #ffffff;\r\n  --primary: #00bcd4;\r\n  --primary-lighten: #80deea;\r\n  --primary-darken: #009eb3;\r\n  --primary-darkest: #008c9e;\r\n  --active: #00bbd446;\r\n  --secondary: #b4b4b4;\r\n  --secondary-lighten: #ededed;\r\n  --secondary-darken: #999999;\r\n  --secondary-darkest: #999999;\r\n  --surface: #212121;\r\n  --dimmer: rgba(0, 0, 0, 0.5);\r\n  --white: #ffffff;\r\n  --success: #61d688;\r\n  --error: #f08383;\r\n  --box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 2px 1px rgba(0, 0, 0, 0.12), 0px 1px 3px rgba(0, 0, 0, 0.2);\r\n  --skeleton-default: linear-gradient(to right, #f6f7f8 0%, #edeef1 10%, #f7f8f8 20%, #f6f7f8 100%);\r\n}\r\n\r\n:root[user-theme='dark'] {\r\n  --font: #ffffff;\r\n  --buttonInput: #141414;\r\n  --background: #212121;\r\n  --primary: #00bcd4;\r\n  --primary-lighten: #80deea;\r\n  --primary-darken: #009eb3;\r\n  --primary-darkest: #008c9e;\r\n  --active: #00bbd446;\r\n  --secondary-lighten: rgb(17, 17, 17);\r\n  --secondary-darken: #030303;\r\n  --secondary-darken: #8b8b8b;\r\n  --skeleton-default: linear-gradient(to right, #242424 0%, #1b1b1b 10%, #2a2a2a 20%, #242424 100%);\r\n}\r\n", "",{"version":3,"sources":["webpack://./src/css/root.css"],"names":[],"mappings":"AAAA;EACE,eAAe;EACf,sBAAsB;EACtB,qBAAqB;EACrB,kBAAkB;EAClB,0BAA0B;EAC1B,yBAAyB;EACzB,0BAA0B;EAC1B,mBAAmB;EACnB,oBAAoB;EACpB,4BAA4B;EAC5B,2BAA2B;EAC3B,4BAA4B;EAC5B,kBAAkB;EAClB,4BAA4B;EAC5B,gBAAgB;EAChB,kBAAkB;EAClB,gBAAgB;EAChB,8GAA8G;EAC9G,iGAAiG;AACnG;;AAEA;EACE,eAAe;EACf,sBAAsB;EACtB,qBAAqB;EACrB,kBAAkB;EAClB,0BAA0B;EAC1B,yBAAyB;EACzB,0BAA0B;EAC1B,mBAAmB;EACnB,oCAAoC;EACpC,2BAA2B;EAC3B,2BAA2B;EAC3B,iGAAiG;AACnG","sourcesContent":[":root {\r\n  --font: #000000;\r\n  --buttonInput: #b4b4b4;\r\n  --background: #ffffff;\r\n  --primary: #00bcd4;\r\n  --primary-lighten: #80deea;\r\n  --primary-darken: #009eb3;\r\n  --primary-darkest: #008c9e;\r\n  --active: #00bbd446;\r\n  --secondary: #b4b4b4;\r\n  --secondary-lighten: #ededed;\r\n  --secondary-darken: #999999;\r\n  --secondary-darkest: #999999;\r\n  --surface: #212121;\r\n  --dimmer: rgba(0, 0, 0, 0.5);\r\n  --white: #ffffff;\r\n  --success: #61d688;\r\n  --error: #f08383;\r\n  --box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 2px 1px rgba(0, 0, 0, 0.12), 0px 1px 3px rgba(0, 0, 0, 0.2);\r\n  --skeleton-default: linear-gradient(to right, #f6f7f8 0%, #edeef1 10%, #f7f8f8 20%, #f6f7f8 100%);\r\n}\r\n\r\n:root[user-theme='dark'] {\r\n  --font: #ffffff;\r\n  --buttonInput: #141414;\r\n  --background: #212121;\r\n  --primary: #00bcd4;\r\n  --primary-lighten: #80deea;\r\n  --primary-darken: #009eb3;\r\n  --primary-darkest: #008c9e;\r\n  --active: #00bbd446;\r\n  --secondary-lighten: rgb(17, 17, 17);\r\n  --secondary-darken: #030303;\r\n  --secondary-darken: #8b8b8b;\r\n  --skeleton-default: linear-gradient(to right, #242424 0%, #1b1b1b 10%, #2a2a2a 20%, #242424 100%);\r\n}\r\n"],"sourceRoot":""}]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js!./src/css/scrollBar.css":
+/*!*********************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./src/css/scrollBar.css ***!
+  \*********************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/sourceMaps.js */ "./node_modules/css-loader/dist/runtime/sourceMaps.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "::-webkit-scrollbar {\r\n  background-color: var(--dimmer);\r\n}\r\n::-webkit-scrollbar-button {\r\n  display: none;\r\n}\r\n::-webkit-scrollbar-track {\r\n  background-color: var(--background);\r\n}\r\n::-webkit-scrollbar-thumb {\r\n  background-color: var(--dimmer);\r\n  border-radius: 5px;\r\n}\r\n::-webkit-scrollbar-button:start:decrement,\r\n::-webkit-scrollbar-button:end:increment {\r\n  width: 16px;\r\n  height: 16px;\r\n  background: var(--background);\r\n}\r\n\r\n.search-modal ::-webkit-scrollbar {\r\n  width: 16px;\r\n}\r\n.search-modal ::-webkit-scrollbar-button {\r\n  display: none;\r\n}\r\n.search-modal ::-webkit-scrollbar-track {\r\n  background-color: var(--background);\r\n}\r\n.search-modal ::-webkit-scrollbar-thumb {\r\n  background-color: var(--dimmer);\r\n  border-radius: 5px;\r\n}\r\n.search-modal ::-webkit-scrollbar-button:start:decrement,\r\n.search-modal ::-webkit-scrollbar-button:end:increment {\r\n  width: 16px;\r\n  height: 16px;\r\n  background: var(--background);\r\n}\r\n", "",{"version":3,"sources":["webpack://./src/css/scrollBar.css"],"names":[],"mappings":"AAAA;EACE,+BAA+B;AACjC;AACA;EACE,aAAa;AACf;AACA;EACE,mCAAmC;AACrC;AACA;EACE,+BAA+B;EAC/B,kBAAkB;AACpB;AACA;;EAEE,WAAW;EACX,YAAY;EACZ,6BAA6B;AAC/B;;AAEA;EACE,WAAW;AACb;AACA;EACE,aAAa;AACf;AACA;EACE,mCAAmC;AACrC;AACA;EACE,+BAA+B;EAC/B,kBAAkB;AACpB;AACA;;EAEE,WAAW;EACX,YAAY;EACZ,6BAA6B;AAC/B","sourcesContent":["::-webkit-scrollbar {\r\n  background-color: var(--dimmer);\r\n}\r\n::-webkit-scrollbar-button {\r\n  display: none;\r\n}\r\n::-webkit-scrollbar-track {\r\n  background-color: var(--background);\r\n}\r\n::-webkit-scrollbar-thumb {\r\n  background-color: var(--dimmer);\r\n  border-radius: 5px;\r\n}\r\n::-webkit-scrollbar-button:start:decrement,\r\n::-webkit-scrollbar-button:end:increment {\r\n  width: 16px;\r\n  height: 16px;\r\n  background: var(--background);\r\n}\r\n\r\n.search-modal ::-webkit-scrollbar {\r\n  width: 16px;\r\n}\r\n.search-modal ::-webkit-scrollbar-button {\r\n  display: none;\r\n}\r\n.search-modal ::-webkit-scrollbar-track {\r\n  background-color: var(--background);\r\n}\r\n.search-modal ::-webkit-scrollbar-thumb {\r\n  background-color: var(--dimmer);\r\n  border-radius: 5px;\r\n}\r\n.search-modal ::-webkit-scrollbar-button:start:decrement,\r\n.search-modal ::-webkit-scrollbar-button:end:increment {\r\n  width: 16px;\r\n  height: 16px;\r\n  background: var(--background);\r\n}\r\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1766,7 +1937,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".switch {\r\n  float: right;\r\n  top: 11px;\r\n  position: relative;\r\n  width: 34px;\r\n  height: 14px;\r\n}\r\n\r\n.switch input {\r\n  opacity: 0;\r\n  width: 0;\r\n  height: 0;\r\n}\r\n\r\n.slider {\r\n  position: absolute;\r\n  cursor: pointer;\r\n  top: 0;\r\n  left: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n  background-color: var(--secondary);\r\n  -webkit-transition: 0.4s;\r\n  transition: 0.4s;\r\n}\r\n\r\n.slider:before {\r\n  position: absolute;\r\n  content: '';\r\n  height: 20px;\r\n  width: 20px;\r\n  left: 0;\r\n  bottom: -3px;\r\n  background-color: var(--secondary-darken);\r\n  -webkit-transition: 0.4s;\r\n  transition: 0.4s;\r\n  box-shadow: var(--box-shadow);\r\n}\r\n\r\ninput:checked + .slider {\r\n  background-color: var(--primary-lighten);\r\n}\r\n\r\ninput:focus + .slider {\r\n  box-shadow: 0 0 1px var(--primary);\r\n}\r\n\r\ninput:checked + .slider:before {\r\n  -webkit-transform: translateX(16px);\r\n  -ms-transform: translateX(16px);\r\n  transform: translateX(16px);\r\n  background-color: var(--primary);\r\n}\r\n\r\n.slider.round {\r\n  border-radius: 34px;\r\n}\r\n\r\n.slider.round:before {\r\n  border-radius: 50%;\r\n}\r\n", "",{"version":3,"sources":["webpack://./src/css/toggle.css"],"names":[],"mappings":"AAAA;EACE,YAAY;EACZ,SAAS;EACT,kBAAkB;EAClB,WAAW;EACX,YAAY;AACd;;AAEA;EACE,UAAU;EACV,QAAQ;EACR,SAAS;AACX;;AAEA;EACE,kBAAkB;EAClB,eAAe;EACf,MAAM;EACN,OAAO;EACP,QAAQ;EACR,SAAS;EACT,kCAAkC;EAClC,wBAAwB;EACxB,gBAAgB;AAClB;;AAEA;EACE,kBAAkB;EAClB,WAAW;EACX,YAAY;EACZ,WAAW;EACX,OAAO;EACP,YAAY;EACZ,yCAAyC;EACzC,wBAAwB;EACxB,gBAAgB;EAChB,6BAA6B;AAC/B;;AAEA;EACE,wCAAwC;AAC1C;;AAEA;EACE,kCAAkC;AACpC;;AAEA;EACE,mCAAmC;EACnC,+BAA+B;EAC/B,2BAA2B;EAC3B,gCAAgC;AAClC;;AAEA;EACE,mBAAmB;AACrB;;AAEA;EACE,kBAAkB;AACpB","sourcesContent":[".switch {\r\n  float: right;\r\n  top: 11px;\r\n  position: relative;\r\n  width: 34px;\r\n  height: 14px;\r\n}\r\n\r\n.switch input {\r\n  opacity: 0;\r\n  width: 0;\r\n  height: 0;\r\n}\r\n\r\n.slider {\r\n  position: absolute;\r\n  cursor: pointer;\r\n  top: 0;\r\n  left: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n  background-color: var(--secondary);\r\n  -webkit-transition: 0.4s;\r\n  transition: 0.4s;\r\n}\r\n\r\n.slider:before {\r\n  position: absolute;\r\n  content: '';\r\n  height: 20px;\r\n  width: 20px;\r\n  left: 0;\r\n  bottom: -3px;\r\n  background-color: var(--secondary-darken);\r\n  -webkit-transition: 0.4s;\r\n  transition: 0.4s;\r\n  box-shadow: var(--box-shadow);\r\n}\r\n\r\ninput:checked + .slider {\r\n  background-color: var(--primary-lighten);\r\n}\r\n\r\ninput:focus + .slider {\r\n  box-shadow: 0 0 1px var(--primary);\r\n}\r\n\r\ninput:checked + .slider:before {\r\n  -webkit-transform: translateX(16px);\r\n  -ms-transform: translateX(16px);\r\n  transform: translateX(16px);\r\n  background-color: var(--primary);\r\n}\r\n\r\n.slider.round {\r\n  border-radius: 34px;\r\n}\r\n\r\n.slider.round:before {\r\n  border-radius: 50%;\r\n}\r\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, ".switch-wrapper {\r\n  display: flex;\r\n  justify-content: space-between;\r\n}\r\n\r\n.switch {\r\n  top: 11px;\r\n  position: relative;\r\n  width: 34px;\r\n  height: 14px;\r\n}\r\n\r\n.switch input {\r\n  opacity: 0;\r\n  width: 0;\r\n  height: 0;\r\n}\r\n\r\n.slider {\r\n  position: absolute;\r\n  cursor: pointer;\r\n  top: 0;\r\n  left: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n  background-color: var(--secondary);\r\n  -webkit-transition: 0.4s;\r\n  transition: 0.4s;\r\n}\r\n\r\n.slider::before {\r\n  position: absolute;\r\n  content: '';\r\n  height: 20px;\r\n  width: 20px;\r\n  left: 0;\r\n  bottom: -3px;\r\n  background-color: var(--secondary-darken);\r\n  -webkit-transition: 0.4s;\r\n  transition: 0.4s;\r\n  box-shadow: var(--box-shadow);\r\n}\r\n\r\ninput:checked + .slider {\r\n  background-color: var(--primary-lighten);\r\n}\r\n\r\ninput:focus + .slider {\r\n  box-shadow: 0 0 1px var(--primary);\r\n}\r\n\r\ninput:checked + .slider::before {\r\n  -webkit-transform: translateX(16px);\r\n  -ms-transform: translateX(16px);\r\n  transform: translateX(16px);\r\n  background-color: var(--primary);\r\n}\r\n\r\n.slider.round {\r\n  border-radius: 34px;\r\n}\r\n\r\n.slider.round::before {\r\n  border-radius: 50%;\r\n}\r\n", "",{"version":3,"sources":["webpack://./src/css/toggle.css"],"names":[],"mappings":"AAAA;EACE,aAAa;EACb,8BAA8B;AAChC;;AAEA;EACE,SAAS;EACT,kBAAkB;EAClB,WAAW;EACX,YAAY;AACd;;AAEA;EACE,UAAU;EACV,QAAQ;EACR,SAAS;AACX;;AAEA;EACE,kBAAkB;EAClB,eAAe;EACf,MAAM;EACN,OAAO;EACP,QAAQ;EACR,SAAS;EACT,kCAAkC;EAClC,wBAAwB;EACxB,gBAAgB;AAClB;;AAEA;EACE,kBAAkB;EAClB,WAAW;EACX,YAAY;EACZ,WAAW;EACX,OAAO;EACP,YAAY;EACZ,yCAAyC;EACzC,wBAAwB;EACxB,gBAAgB;EAChB,6BAA6B;AAC/B;;AAEA;EACE,wCAAwC;AAC1C;;AAEA;EACE,kCAAkC;AACpC;;AAEA;EACE,mCAAmC;EACnC,+BAA+B;EAC/B,2BAA2B;EAC3B,gCAAgC;AAClC;;AAEA;EACE,mBAAmB;AACrB;;AAEA;EACE,kBAAkB;AACpB","sourcesContent":[".switch-wrapper {\r\n  display: flex;\r\n  justify-content: space-between;\r\n}\r\n\r\n.switch {\r\n  top: 11px;\r\n  position: relative;\r\n  width: 34px;\r\n  height: 14px;\r\n}\r\n\r\n.switch input {\r\n  opacity: 0;\r\n  width: 0;\r\n  height: 0;\r\n}\r\n\r\n.slider {\r\n  position: absolute;\r\n  cursor: pointer;\r\n  top: 0;\r\n  left: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n  background-color: var(--secondary);\r\n  -webkit-transition: 0.4s;\r\n  transition: 0.4s;\r\n}\r\n\r\n.slider::before {\r\n  position: absolute;\r\n  content: '';\r\n  height: 20px;\r\n  width: 20px;\r\n  left: 0;\r\n  bottom: -3px;\r\n  background-color: var(--secondary-darken);\r\n  -webkit-transition: 0.4s;\r\n  transition: 0.4s;\r\n  box-shadow: var(--box-shadow);\r\n}\r\n\r\ninput:checked + .slider {\r\n  background-color: var(--primary-lighten);\r\n}\r\n\r\ninput:focus + .slider {\r\n  box-shadow: 0 0 1px var(--primary);\r\n}\r\n\r\ninput:checked + .slider::before {\r\n  -webkit-transform: translateX(16px);\r\n  -ms-transform: translateX(16px);\r\n  transform: translateX(16px);\r\n  background-color: var(--primary);\r\n}\r\n\r\n.slider.round {\r\n  border-radius: 34px;\r\n}\r\n\r\n.slider.round::before {\r\n  border-radius: 50%;\r\n}\r\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
